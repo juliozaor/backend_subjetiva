@@ -94,10 +94,12 @@ export class ServicioAutenticacion {
       descripcion: 'Inicio de sesión'
     })
 
-    const rol = new RolDto(rolUsuario)    
-    const modulo = rol.modulos.find(modulo => modulo.id === '002');
+   /*  const rol = new RolDto(rolUsuario)     */
+
     const formularios = new Array()
-    if (modulo) {
+    
+/*     const modulo = rol.modulos.find(modulo => modulo.id === '002');
+    if (modulo) { */
       const frms = await TblUsuarios.query().preload('formularios', sqlFrm =>{
         sqlFrm.where('fvi_estado', true)
       }).where('usn_id',usuarioVerificado.id).first()
@@ -106,10 +108,11 @@ export class ServicioAutenticacion {
         formularios.push({
           id:frm.id,
           nombre:frm.nombre,
-          ruta: frm.ruta
+          ruta: frm.ruta,
+          delegatura: frm.delegatura
         })
       });      
-    } 
+/*     }  */
 
     return new RespuestaInicioSesion(
       {
