@@ -91,6 +91,9 @@ export default class ControladorReporte {
     response.status(200).send({ sociedades })
   }
 
-  
+  public async Equipos({ request, response }: HttpContextContract) {
+    const equipos = await TblMaestraEquipos.query().orderBy('id', 'asc');
+    response.status(200).send({ equipos })
+  }
 
 }

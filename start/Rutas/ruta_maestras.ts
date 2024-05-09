@@ -14,5 +14,6 @@ Route.group(() => {
   Route.get('/sino', accion_path + '.SiNo')
   Route.get('/sinoaplica', accion_path + '.SiNoNoaplica')
   Route.get('/sociedades', accion_path + '.Sociedades')
+  Route.get('/equipos', accion_path + '.Sociedades')
 }).prefix('api/v1/maestras').middleware('autenticacionJwt')
 
