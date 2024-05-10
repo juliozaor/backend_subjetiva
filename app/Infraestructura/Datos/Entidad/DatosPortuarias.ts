@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 
 export default class TblDatosPortuarias extends BaseModel {
   public static table = 'tbl_datos_portuarias';
-  @column({ isPrimary: true, columnName: 'aud_id' })
+  @column({ isPrimary: true, columnName: 'fdp_id' })
   public id?: number
 
   @column({ columnName: 'fdp_pregunta_id' }) public preguntaId: number;

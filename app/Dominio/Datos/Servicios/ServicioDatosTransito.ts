@@ -5,8 +5,7 @@ import { PayloadJWT } from 'App/Dominio/Dto/PayloadJWT';
 export class ServicioDatosTransito{
   constructor (private repositorio: RepositorioDatosTransito) { }
 
-  async guardar (datos:string, payload:PayloadJWT, vigencia:number): Promise<any> {
-    const {documento} = payload;
+  async guardar (datos:any, documento:string, vigencia:number): Promise<any> {
     return this.repositorio.guardar(datos, documento, vigencia);
   }
 

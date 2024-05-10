@@ -5,8 +5,12 @@ import { PayloadJWT } from 'App/Dominio/Dto/PayloadJWT';
 export class ServicioDatosPortuarias{
   constructor (private repositorio: RepositorioDatosPortuaria) { }
 
-  async guardar (datos:string, payload:PayloadJWT, vigencia:number): Promise<any> {
-    const {documento} = payload;
+  async obtener (documento:string, vigencia:number): Promise<any> {
+    return this.repositorio.obtener(documento, vigencia);
+  }
+
+
+  async guardar (datos:any, documento:string, vigencia:number): Promise<any> {
     return this.repositorio.guardar(datos, documento, vigencia);
   }
 

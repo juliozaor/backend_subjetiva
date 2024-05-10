@@ -1,3 +1,4 @@
 export interface RepositorioDatosPortuaria {
-  guardar(datos: string, documento:string, vigencia:number): Promise<any>  
+  obtener(documento:string, vigencia:number): Promise<any>  
+  guardar(datos: any, documento:string, vigencia:number): Promise<any>  
 }
