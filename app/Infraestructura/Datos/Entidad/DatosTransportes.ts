@@ -2,7 +2,7 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
 import { DatoTransporte } from 'App/Dominio/Datos/Entidades/DatoTransporte';
 import { DateTime } from 'luxon';
 
-export default class TblAuditorias extends BaseModel {
+export default class TblDatosTransporte extends BaseModel {
   public static table = 'tbl_datos_transportes';
   @column({ isPrimary: true, columnName: 'fdt_id' })
   public id?: number

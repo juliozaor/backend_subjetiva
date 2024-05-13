@@ -1,14 +1,14 @@
-import { RepositorioDatosPortuaria } from "App/Dominio/Repositorios/RepositorioDatosPortuaria";
 import Errores from "App/Exceptions/Errores";
-import TblDatosPortuarias from "App/Infraestructura/Datos/Entidad/DatosPortuarias";
-import TblSociedadesPortuarias from "App/Infraestructura/Datos/Entidad/SociedadesPortuarias";
-import { ValidarPortuaria } from "../../Util/ValidarPortuaria";
+import { ValidarTransporte } from "../../Util/ValidarTransporte";
 import { Pregunta } from "../dto/pregunta";
-export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
-  private validarPortuaria = new ValidarPortuaria();
+import TblEmpresasTransportes from "App/Infraestructura/Datos/Entidad/EmpresasTransporte";
+import TblDatosTransporte from "App/Infraestructura/Datos/Entidad/DatosTransportes";
+import { RepositorioDatosTransporte } from "App/Dominio/Repositorios/RepositorioDatosTransporte";
+export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte {
+  private validarTransporte = new ValidarTransporte();
   async obtener(documento: string, vigencia: number): Promise<any> {
     try {
-      const preguntas = await TblSociedadesPortuarias.query().preload(
+      const preguntas = await TblEmpresasTransportes.query().preload(
         "datos",
         (sqlDatos) => {
           sqlDatos.where("vigencia", vigencia);
@@ -54,7 +54,7 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
     }
 
     try {
-      await TblDatosPortuarias.updateOrCreateMany(
+      await TblDatosTransporte.updateOrCreateMany(
         ["preguntaId", "vigiladoId", "vigencia"],
         preguntasDB
       );
@@ -69,7 +69,7 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
 
   async enviar(documento: string, vigencia: number): Promise<any> {
     const preguntas: Pregunta[] = await this.obtener(documento, vigencia);
-    const faltantes = await this.validarPortuaria.validar(preguntas);
+    const faltantes = await this.validarTransporte.validar(preguntas);
     console.log(faltantes.length);
     if (faltantes.length >= 0) {
       return {

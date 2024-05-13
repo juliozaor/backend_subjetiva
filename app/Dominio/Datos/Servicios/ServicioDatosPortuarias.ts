@@ -14,4 +14,8 @@ export class ServicioDatosPortuarias{
     return this.repositorio.guardar(datos, documento, vigencia);
   }
 
+  async enviar (documento:string, vigencia:number): Promise<any> {
+    return this.repositorio.enviar(documento, vigencia);
+  }
+
 }

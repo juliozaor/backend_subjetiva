@@ -31,7 +31,9 @@
     "./start/Rutas/ruta_soportes",
     "./start/Rutas/ruta_meses",
     "./start/Rutas/ruta_vigencias",
-    "./start/Rutas/ruta_portuaria"
+    "./start/Rutas/ruta_portuaria",
+    "./start/Rutas/ruta_transito",
+    "./start/Rutas/ruta_transporte"
   ],
   "providers": [
     "./providers/AppProvider",

@@ -1,22 +1,21 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext"
-import { ServicioDatosPortuarias } from "App/Dominio/Datos/Servicios/ServicioDatosPortuarias";
-import { RepositorioDatosPortuariasDB } from "App/Infraestructura/Implementacion/Lucid/RepositorioDatosPortuariasDB";
+import { ServicioDatosTransito } from "App/Dominio/Datos/Servicios/ServicioDatosTransito";
+import { RepositorioDatosTransitoDB } from "App/Infraestructura/Implementacion/Lucid/RepositorioDatosTransitoDB";
 import Env from '@ioc:Adonis/Core/Env';
 
-export default class ControladorPortuaria {
-    private servicio: ServicioDatosPortuarias
+export default class ControladorTransito {
+    private servicio: ServicioDatosTransito
     private vigencia = Env.get('VIGENCIA')
-
     constructor() {
-        this.servicio = new ServicioDatosPortuarias(new RepositorioDatosPortuariasDB());
+        this.servicio = new ServicioDatosTransito(new RepositorioDatosTransitoDB());
     }
 
  
     public async obtener ({request,response}:HttpContextContract ){
         const { documento } = await request.obtenerPayloadJWT()
         const vigencia = this.vigencia
-        const portuaria = await this.servicio.obtener(documento, vigencia)
-        return portuaria
+        const Transito = await this.servicio.obtener(documento, vigencia)
+        return Transito
       }
 
     public async guardar ({request, response}:HttpContextContract ){    
@@ -24,9 +23,9 @@ export default class ControladorPortuaria {
         const vigencia = this.vigencia
         try {        
          
-          const portuaria = await this.servicio.guardar(request.all(), documento, vigencia)
+          const Transito = await this.servicio.guardar(request.all(), documento, vigencia)
      
-          return portuaria
+          return Transito
         } catch (error) {         
          throw error;         
         }
@@ -35,8 +34,8 @@ export default class ControladorPortuaria {
        public async enviar ({request,response}:HttpContextContract ){
         const { documento } = await request.obtenerPayloadJWT()
         const vigencia = this.vigencia
-        const portuaria = await this.servicio.enviar(documento, vigencia)
-        return portuaria
+        const Transito = await this.servicio.enviar(documento, vigencia)
+        return Transito
       }
 
 }

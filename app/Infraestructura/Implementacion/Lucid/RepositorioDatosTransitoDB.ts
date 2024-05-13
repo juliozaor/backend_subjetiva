@@ -1,14 +1,14 @@
-import { RepositorioDatosPortuaria } from "App/Dominio/Repositorios/RepositorioDatosPortuaria";
+import { RepositorioDatosTransito } from "App/Dominio/Repositorios/RepositorioDatosTransito";
 import Errores from "App/Exceptions/Errores";
-import TblDatosPortuarias from "App/Infraestructura/Datos/Entidad/DatosPortuarias";
-import TblSociedadesPortuarias from "App/Infraestructura/Datos/Entidad/SociedadesPortuarias";
-import { ValidarPortuaria } from "../../Util/ValidarPortuaria";
+import TblDatosTransitos from "App/Infraestructura/Datos/Entidad/DatosTransitos";
+import { ValidarTransito } from "../../Util/ValidarTransito";
 import { Pregunta } from "../dto/pregunta";
-export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
-  private validarPortuaria = new ValidarPortuaria();
+import TblOrganismosTransitos from "App/Infraestructura/Datos/Entidad/OrganismosTransito";
+export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
+  private validarTransito = new ValidarTransito();
   async obtener(documento: string, vigencia: number): Promise<any> {
     try {
-      const preguntas = await TblSociedadesPortuarias.query().preload(
+      const preguntas = await TblOrganismosTransitos.query().preload(
         "datos",
         (sqlDatos) => {
           sqlDatos.where("vigencia", vigencia);
@@ -54,7 +54,7 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
     }
 
     try {
-      await TblDatosPortuarias.updateOrCreateMany(
+      await TblDatosTransitos.updateOrCreateMany(
         ["preguntaId", "vigiladoId", "vigencia"],
         preguntasDB
       );
@@ -69,7 +69,7 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
 
   async enviar(documento: string, vigencia: number): Promise<any> {
     const preguntas: Pregunta[] = await this.obtener(documento, vigencia);
-    const faltantes = await this.validarPortuaria.validar(preguntas);
+    const faltantes = await this.validarTransito.validar(preguntas);
     console.log(faltantes.length);
     if (faltantes.length >= 0) {
       return {

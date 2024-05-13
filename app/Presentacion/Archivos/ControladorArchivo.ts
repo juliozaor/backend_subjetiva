@@ -29,7 +29,7 @@ export default class ControladorArchivo {
     }
 
     if (!archivo.isValid) {
-      return response.status(415).send({ mensaje: `Formato inválido: no se puede cargar el archivo seleccionado. Inténtalo nuevamente, el tipo de archivo permitido es '.pdf'` })
+      return response.status(415).send({ mensaje: `Formato inválido: no se puede cargar el archivo seleccionado. Inténtalo nuevamente, el tipo de archivo permitido es '.${ extension }'` })
     }
 
     const fs = require('fs');
@@ -59,6 +59,8 @@ export default class ControladorArchivo {
       
       console.error('Error en la solicitud:', error.message);
     }
+
+    
 
   }
 
