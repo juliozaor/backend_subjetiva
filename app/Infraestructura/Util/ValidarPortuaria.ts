@@ -1,11 +1,15 @@
 import { Pregunta } from "../Implementacion/dto/pregunta";
+import Preguntas from 'App/Infraestructura/Datos/Entidad/Pregunta';
 
 export class ValidarPortuaria {
 
 
-    public async validar(preguntas: Pregunta[]) : Promise<number[]>{
+    public async validar(preguntasDB: any) : Promise<number[]>{
+        let preguntas: Pregunta[] = preguntasDB.preguntas;
 
         const faltantes: number[] = []
+        
+        
         preguntas.forEach(pregunta => {
 
             const id = pregunta.preguntaId

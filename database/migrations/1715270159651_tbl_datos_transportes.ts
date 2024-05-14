@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('fdt_id')
-      table.integer('fdt_pregunta_id').references('tsp_id').inTable('tbl_sociedades_portuarias')
+      table.integer('fdt_pregunta_id').references('tet_id').inTable('tbl_empresas_transportes')
       table.string('fdt_vigilado_id').references('usn_identificacion').inTable('tbl_usuarios')
       table.string('fdt_valor')
       table.string('fdt_documento')

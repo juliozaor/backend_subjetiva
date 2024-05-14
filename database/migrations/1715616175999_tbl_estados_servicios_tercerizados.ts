@@ -6,6 +6,13 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('tst_id')
+      table.string('tst_razon_social', 100)
+      table.integer('tst_tipo_nit')
+      table.integer('tst_nit')
+      table.integer('tst_digito_verificacion')
+      table.integer('tst_tipo_oganizacion')
+      table.integer('tst_apoya_terceros')
+      table.integer('tst_proceso_adjudicacion')
       table.boolean('tst_gruas').defaultTo(false)
       table.boolean('tst_patios').defaultTo(false)
       table.boolean('tst_tramites_transito').defaultTo(false)

@@ -84,7 +84,9 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
   }
 
   async enviar(documento: string, vigencia: number): Promise<any> {
-    const preguntas: Pregunta[] = await this.obtener(documento, vigencia);
+    
+    const preguntas: any = await this.obtener(documento, vigencia);
+    
     const faltantes = await this.validarPortuaria.validar(preguntas);
     let aprobado = true
     if (faltantes.length >= 0) {

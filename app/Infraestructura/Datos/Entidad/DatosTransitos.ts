@@ -4,11 +4,12 @@ import { DateTime } from 'luxon';
 
 export default class TblDatosTransitos extends BaseModel {
   public static table = 'tbl_datos_transitos';
-  @column({ isPrimary: true, columnName: 'aud_id' })
+  @column({ isPrimary: true, columnName: 'dtt_id' })
   public id?: number
 
   @column({ columnName: 'dtt_pregunta_id' }) public preguntaId: number;
   @column({ columnName: 'dtt_vigilado_id' }) public vigiladoId: string;
+  @column({ columnName: 'dtt_servicio_id' }) public servicioId: number;
   @column({ columnName: 'dtt_valor' }) public valor: string;
   @column({ columnName: 'dtt_documento' }) public nombreAlmacenado: string;
   @column({ columnName: 'dtt_nombre_original' }) public nombreOriginalArchivo: string;
@@ -26,6 +27,7 @@ export default class TblDatosTransitos extends BaseModel {
     this.id = dato.id
     this.preguntaId = dato.preguntaId
     this.vigiladoId = dato.vigiladoId
+    this.servicioId = dato.servicioId
     this.valor = dato.valor
     this.nombreAlmacenado = dato.nombreAlmacenado
     this.nombreOriginalArchivo = dato.nombreOriginalArchivo
@@ -36,6 +38,7 @@ export default class TblDatosTransitos extends BaseModel {
   public estableceDatoConId(dato: DatoTransito) {
     this.preguntaId = dato.preguntaId
     this.vigiladoId = dato.vigiladoId
+    this.servicioId = dato.servicioId
     this.valor = dato.valor
     this.nombreAlmacenado = dato.nombreAlmacenado
     this.nombreOriginalArchivo = dato.nombreOriginalArchivo
@@ -48,6 +51,7 @@ export default class TblDatosTransitos extends BaseModel {
     dato.id = this.id
     dato.preguntaId = this.preguntaId
     dato.vigiladoId = this.vigiladoId
+    dato.servicioId = this.servicioId
     dato.valor = this.valor
     dato.nombreAlmacenado = this.nombreAlmacenado
     dato.nombreOriginalArchivo = this.nombreOriginalArchivo

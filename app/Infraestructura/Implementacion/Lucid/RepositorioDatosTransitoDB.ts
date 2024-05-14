@@ -5,11 +5,22 @@ import { ValidarTransito } from "../../Util/ValidarTransito";
 import { Pregunta } from "../dto/pregunta";
 import TblOrganismosTransitos from "App/Infraestructura/Datos/Entidad/OrganismosTransito";
 import { ServicioEstados } from "App/Dominio/Datos/Servicios/ServicioEstados";
+import TblEstadosServiciosTercerizados from "App/Infraestructura/Datos/Entidad/EstadosServiciosTercerizados";
+import TblServiciosTerverizados from "App/Infraestructura/Datos/Entidad/ServiciosTercerizados";
 export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
   private estados = new ServicioEstados()
   private validarTransito = new ValidarTransito();
   async obtener(documento: string, vigencia: number): Promise<any> {
-    try {
+    const editable = await this.estados.consultarEnviado(documento,vigencia,7)
+
+    const identificacionOrganismo = await TblEstadosServiciosTercerizados.query().where("vigencia", vigencia)
+    .andWhere("vigiladoId", documento);
+
+    const serviciosTercerizados = await TblServiciosTerverizados.query()
+
+    return {identificacionOrganismo}
+
+    /* try {
       const preguntasDB = await TblOrganismosTransitos.query().preload(
         "datos",
         (sqlDatos) => {
@@ -20,7 +31,6 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
       this.estados.Log(documento,1002,vigencia,9)
 
-      const editable = await this.estados.consultarEnviado(documento,vigencia,7)
       
       const preguntas = new Array()
 
@@ -47,15 +57,15 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
         `Se presento un problema al consultar el formulario`,
         400
       );
-    }
+    } */
   }
 
   async guardar(datos: any, documento: string, vigencia: number): Promise<any> {
-    const { preguntas } = datos;
+    const { preguntas, identificacionOrganismo } = datos;
     let preguntasDB = new Array();
     if (!preguntas) {
       throw new Errores(
-        `Se presento un problema al guardar el formulario`,
+        `Se presento un problema al guardar el formulario1`,
         400
       );
     }
@@ -68,18 +78,37 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
     }
 
     try {
+
+      const condicionesBusqueda = {
+        vigiladoId: documento,
+        vigencia: vigencia
+      };
+
+      await TblEstadosServiciosTercerizados.updateOrCreate(condicionesBusqueda, identificacionOrganismo);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+
+    
+    try {
       await TblDatosTransitos.updateOrCreateMany(
-        ["preguntaId", "vigiladoId", "vigencia"],
+        ["preguntaId", "vigiladoId", "vigencia", "servicioId"],
         preguntasDB
       );
-      this.estados.Log(documento,1003,vigencia,9)
-      return true;
+      
     } catch (error) {
       throw new Errores(
-        `Se presento un problema al guardar el formulario`,
+        `Se presento un problema al guardar el formulario, ${error}`,
         400
       );
     }
+    
+    this.estados.Log(documento,1003,vigencia,9)
+    return true;
+
   }
 
   async enviar(documento: string, vigencia: number): Promise<any> {
