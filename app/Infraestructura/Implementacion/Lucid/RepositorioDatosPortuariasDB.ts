@@ -4,11 +4,13 @@ import TblDatosPortuarias from "App/Infraestructura/Datos/Entidad/DatosPortuaria
 import TblSociedadesPortuarias from "App/Infraestructura/Datos/Entidad/SociedadesPortuarias";
 import { ValidarPortuaria } from "../../Util/ValidarPortuaria";
 import { Pregunta } from "../dto/pregunta";
+import { ServicioEstados } from "App/Dominio/Datos/Servicios/ServicioEstados";
 export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
+  private estados = new ServicioEstados()
   private validarPortuaria = new ValidarPortuaria();
   async obtener(documento: string, vigencia: number): Promise<any> {
     try {
-      const preguntas = await TblSociedadesPortuarias.query().preload(
+      const preguntasDB = await TblSociedadesPortuarias.query().preload(
         "datos",
         (sqlDatos) => {
           sqlDatos.where("vigencia", vigencia);
@@ -16,16 +18,29 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
         }
       );
 
-      return preguntas.map((pregunta) => {
-        return {
+      this.estados.Log(documento,1002,vigencia,7)
+
+      const editable = await this.estados.consultarEnviado(documento,vigencia,7)
+      
+      const preguntas = new Array()
+
+      preguntasDB.forEach(pregunta => {
+        preguntas.push({
           preguntaId: pregunta.id,
           nombre: pregunta.nombre,
           valor: pregunta.datos[0]?.valor ?? "",
           nombreAlmacenado: pregunta.datos[0]?.nombreAlmacenado ?? "",
           nombreOriginalArchivo: pregunta.datos[0]?.nombreOriginalArchivo ?? "",
           ruta: pregunta.datos[0]?.ruta ?? "",
-        };
+        })
       });
+
+      return{
+        preguntas,
+        editable
+      }
+
+
     } catch (error) {
       console.log(error);
 
@@ -58,6 +73,7 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
         ["preguntaId", "vigiladoId", "vigencia"],
         preguntasDB
       );
+      this.estados.Log(documento,1003,vigencia,7)
       return true;
     } catch (error) {
       throw new Errores(
@@ -70,16 +86,16 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
   async enviar(documento: string, vigencia: number): Promise<any> {
     const preguntas: Pregunta[] = await this.obtener(documento, vigencia);
     const faltantes = await this.validarPortuaria.validar(preguntas);
-    console.log(faltantes.length);
+    let aprobado = true
     if (faltantes.length >= 0) {
-      return {
-        aprovado: false,
-        faltantes,
-      };
+      aprobado = false
     }
-
+    if (aprobado) {
+      this.estados.Log(documento,1004,vigencia,7)      
+    }
+   
     return {
-      aprovado: true,
+      aprobado,
       faltantes,
     };
   }

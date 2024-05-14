@@ -1,16 +1,63 @@
+import { TblActualEstados } from "App/Infraestructura/Datos/Entidad/ActualEstados";
+import { TblLogEstados } from "App/Infraestructura/Datos/Entidad/LogEstados";
 
 export class ServicioEstados {
 
-  public async Log(usuario: string, estado: number, idEncuesta?: number, idReporte?: number, confirmar?: boolean) {
-   
+  public async Log(vigiladoId: string, estadoId: number, vigencia: number, formularioId: number) {
+   const existe = await TblLogEstados.query().where(
+    {'tle_vigilado_id': vigiladoId, 'tle_estado_id': estadoId, 'tle_formulario_id': formularioId, 'tle_anio_activo': vigencia}).first()
+      if (!existe) {
+        const logEstados = new TblLogEstados()
+        logEstados.vigiladoId = vigiladoId
+        logEstados.estadoId = estadoId
+        logEstados.formularioId = formularioId
+        logEstados.vigencia = vigencia
+        await logEstados.save()
+      }
+
+      this.estadoReporte(vigiladoId, estadoId, vigencia, formularioId)
+
   }
 
-  valdarEstado = async (usuario: string, estado: number, idEncuesta?: number, confirmar?: boolean) => {
-   
-  }
 
-  public async estadoReporte(idReporte: number, anioVigencia: number, idMes: number, estado: number, enviost?:any) {
+
+  public async estadoReporte(vigiladoId: string, estadoId: number, vigencia: number, formularioId: number) {
+    
+    const existe = await TblActualEstados.query().where(
+      {'tae_vigilado_id': vigiladoId, 'tae_formulario_id': formularioId, 'tae_anio_activo': vigencia}).first()
+        if (!existe) {
+          const logEstados = new TblActualEstados()
+          logEstados.vigiladoId = vigiladoId
+          logEstados.estadoId = estadoId
+          logEstados.formularioId = formularioId
+          logEstados.vigencia = vigencia
+          await logEstados.save()
+        }else{
+          existe.estadoId = estadoId
+          await existe.save()
+        }
+
  
   }
+
+  public async consultarEnviado(vigiladoId: string, vigencia: number, formularioId: number): Promise<boolean> {
+    
+    const existe = await TblActualEstados.query().where(
+      {'tae_vigilado_id': vigiladoId, 
+      'tae_formulario_id': formularioId, 
+      'tae_anio_activo': vigencia, 
+      'tae_estado_id': 1004})
+      .first()
+      
+        if (!existe) {
+          return true
+        }
+        
+        return false
+
+ 
+  }
+
+
 
 }

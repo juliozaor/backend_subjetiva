@@ -94,7 +94,7 @@ export class RepositorioEncuestasDB implements RepositorioEncuesta {
       await reporte.save();
       reportadasBD = await consulta.orderBy('fecha_enviost', 'desc').paginate(pagina, limite)
 
-      this.servicioEstado.Log(idUsuario, 1002, idEncuesta)
+      //this.servicioEstado.Log(idUsuario, 1002, idEncuesta)
 
       this.servicioAuditoria.Auditar({
         accion: "Listar Informacion General SUBJETIVO",

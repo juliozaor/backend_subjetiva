@@ -4,11 +4,13 @@ import { Pregunta } from "../dto/pregunta";
 import TblEmpresasTransportes from "App/Infraestructura/Datos/Entidad/EmpresasTransporte";
 import TblDatosTransporte from "App/Infraestructura/Datos/Entidad/DatosTransportes";
 import { RepositorioDatosTransporte } from "App/Dominio/Repositorios/RepositorioDatosTransporte";
+import { ServicioEstados } from "App/Dominio/Datos/Servicios/ServicioEstados";
 export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte {
+  private estados = new ServicioEstados()
   private validarTransporte = new ValidarTransporte();
   async obtener(documento: string, vigencia: number): Promise<any> {
     try {
-      const preguntas = await TblEmpresasTransportes.query().preload(
+      const preguntasDB = await TblEmpresasTransportes.query().preload(
         "datos",
         (sqlDatos) => {
           sqlDatos.where("vigencia", vigencia);
@@ -16,16 +18,27 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
         }
       );
 
-      return preguntas.map((pregunta) => {
-        return {
+      this.estados.Log(documento,1002,vigencia,8)
+
+      const editable = await this.estados.consultarEnviado(documento,vigencia,7)
+      
+      const preguntas = new Array()
+
+      preguntasDB.forEach(pregunta => {
+        preguntas.push({
           preguntaId: pregunta.id,
           nombre: pregunta.nombre,
           valor: pregunta.datos[0]?.valor ?? "",
           nombreAlmacenado: pregunta.datos[0]?.nombreAlmacenado ?? "",
           nombreOriginalArchivo: pregunta.datos[0]?.nombreOriginalArchivo ?? "",
           ruta: pregunta.datos[0]?.ruta ?? "",
-        };
+        })
       });
+
+      return{
+        preguntas,
+        editable
+      }
     } catch (error) {
       console.log(error);
 
@@ -58,6 +71,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
         ["preguntaId", "vigiladoId", "vigencia"],
         preguntasDB
       );
+      this.estados.Log(documento,1003,vigencia,8)
       return true;
     } catch (error) {
       throw new Errores(
@@ -70,16 +84,16 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
   async enviar(documento: string, vigencia: number): Promise<any> {
     const preguntas: Pregunta[] = await this.obtener(documento, vigencia);
     const faltantes = await this.validarTransporte.validar(preguntas);
-    console.log(faltantes.length);
+    let aprobado = true
     if (faltantes.length >= 0) {
-      return {
-        aprovado: false,
-        faltantes,
-      };
+      aprobado = false
     }
-
+    if (aprobado) {
+      this.estados.Log(documento,1004,vigencia,8)      
+    }
+   
     return {
-      aprovado: true,
+      aprobado,
       faltantes,
     };
   }
