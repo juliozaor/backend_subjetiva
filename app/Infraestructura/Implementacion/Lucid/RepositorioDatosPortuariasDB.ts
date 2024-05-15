@@ -89,7 +89,7 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
     
     const faltantes = await this.validarPortuaria.validar(preguntas);
     let aprobado = true
-    if (faltantes.length >= 0) {
+    if (faltantes.length > 0) {
       aprobado = false
     }
     if (aprobado) {

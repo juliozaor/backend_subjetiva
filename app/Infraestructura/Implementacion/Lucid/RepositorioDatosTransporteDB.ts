@@ -85,7 +85,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
     const preguntas: any = await this.obtener(documento, vigencia);
     const faltantes = await this.validarTransporte.validar(preguntas);
     let aprobado = true
-    if (faltantes.length >= 0) {
+    if (faltantes.length > 0) {
       aprobado = false
     }
     if (aprobado) {
