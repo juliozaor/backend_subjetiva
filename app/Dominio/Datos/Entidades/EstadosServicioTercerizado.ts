@@ -1,12 +1,12 @@
 export class EstadosServicioTercerizado {
   id?: number;
   razonSocial: string;
-  tipoNit: number;
-  nit: number;
-  digitoVerificacion: number;
-  tipoOrganizacion: number;
-  apoyaTerceros: number;
-  procesoAdjudicacion: number;
+  tipoNit: number | null;
+  nit: number | null;
+  digitoVerificacion: number | null;
+  tipoOrganizacion: number | null;
+  apoyaTerceros: number | null;
+  procesoAdjudicacion: number | null;
   gruas: boolean;
   patios: boolean;
   tramitesTransito: boolean;

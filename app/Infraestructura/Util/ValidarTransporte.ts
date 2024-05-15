@@ -3,7 +3,8 @@ import { Pregunta } from "../Implementacion/dto/pregunta";
 export class ValidarTransporte {
 
 
-    public async validar(preguntas: Pregunta[]) : Promise<number[]>{
+    public async validar(preguntasDB: any) : Promise<number[]>{
+        let preguntas: Pregunta[] = preguntasDB.preguntas;
 
         const faltantes: number[] = []
         preguntas.forEach(pregunta => {

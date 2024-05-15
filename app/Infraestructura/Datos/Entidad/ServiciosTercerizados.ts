@@ -6,6 +6,7 @@ export default class TblServiciosTerverizados extends BaseModel {
   public id: number
 
   @column({ columnName: 'str_nombre' }) public nombre: string;
+  @column({ columnName: 'str_mostrar' }) public mostrar: string;
 
 
 }

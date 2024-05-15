@@ -1,10 +1,24 @@
+import { EstadosServicioTercerizado } from "App/Dominio/Datos/Entidades/EstadosServicioTercerizado";
 import { Pregunta } from "../Implementacion/dto/pregunta";
 
 export class ValidarTransito {
 
 
-    public async validar(preguntas: Pregunta[]) : Promise<number[]>{
+    public async validar(preguntasDB:any) : Promise<{}>{
+        let preguntas: any[] = preguntasDB.preguntas;
+        let identificacionOrganismo: EstadosServicioTercerizado = preguntasDB.identificacionOrganismo;
 
+        const faltantesIdentificacion: string[] = [];
+
+        for (const key in identificacionOrganismo) {
+            if (typeof identificacionOrganismo[key] !== 'boolean') {
+                if (identificacionOrganismo[key] === undefined || identificacionOrganismo[key] === null || identificacionOrganismo[key] === '') {
+                    faltantesIdentificacion.push(key); 
+                }
+            }
+        }
+       
+                
         const faltantes: number[] = []
         preguntas.forEach(pregunta => {
 
@@ -51,7 +65,7 @@ export class ValidarTransito {
             });
     
     
-        return faltantes
+        return {faltantes,faltantesIdentificacion}
     
       }
 

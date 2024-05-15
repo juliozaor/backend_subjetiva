@@ -7,57 +7,73 @@ import TblOrganismosTransitos from "App/Infraestructura/Datos/Entidad/Organismos
 import { ServicioEstados } from "App/Dominio/Datos/Servicios/ServicioEstados";
 import TblEstadosServiciosTercerizados from "App/Infraestructura/Datos/Entidad/EstadosServiciosTercerizados";
 import TblServiciosTerverizados from "App/Infraestructura/Datos/Entidad/ServiciosTercerizados";
+import Database from "@ioc:Adonis/Lucid/Database";
+import { EstadosServicioTercerizado } from "App/Dominio/Datos/Entidades/EstadosServicioTercerizado";
 export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
   private estados = new ServicioEstados()
   private validarTransito = new ValidarTransito();
   async obtener(documento: string, vigencia: number): Promise<any> {
     const editable = await this.estados.consultarEnviado(documento,vigencia,7)
 
-    const identificacionOrganismo = await TblEstadosServiciosTercerizados.query().where("vigencia", vigencia)
-    .andWhere("vigiladoId", documento);
+    const identificacionOrganismoDB = await TblEstadosServiciosTercerizados.query()
+    .where("vigencia", vigencia)
+    .andWhere("vigiladoId", documento)
+    .first();
 
-    const serviciosTercerizados = await TblServiciosTerverizados.query()
+    const identificacionOrganismo: EstadosServicioTercerizado = identificacionOrganismoDB?.obtenerDato() ?? {
+      razonSocial: '',
+      tipoNit: null,
+      nit: null,
+      digitoVerificacion: null,
+      tipoOrganizacion: null,
+      apoyaTerceros: null,
+      procesoAdjudicacion: null,
+      gruas: false,
+      patios: false,
+      tramitesTransito: false,
+      deteccionInfracciones: false,
+      procesosContravencionales: false,
+      procesoCobroCoactivo: false,
+      procesoCobroPersuasivo: false,
+      recaudoMultas: false,
+      otros: false, 
+      vigiladoId: documento,
+      vigencia
+    };
 
-    return {identificacionOrganismo}
+    const preguntas = new Array()
 
-    /* try {
-      const preguntasDB = await TblOrganismosTransitos.query().preload(
-        "datos",
-        (sqlDatos) => {
-          sqlDatos.where("vigencia", vigencia);
-          sqlDatos.where("vigiladoId", documento);
-        }
-      );
+    const serviciosTercerizados = await TblServiciosTerverizados.query().orderBy('id', 'asc')
+    const organismosTransito = await TblOrganismosTransitos.query().orderBy('id', 'asc')
+   // return serviciosTercerizados
+    const preguntaDB = await TblDatosTransitos.query().where({ vigiladoId:documento, vigencia: vigencia })
 
-      this.estados.Log(documento,1002,vigencia,9)
 
+    for await (const servicio of serviciosTercerizados) {
+      preguntas[servicio.mostrar] = new Array()
+      console.log(servicio.mostrar);
       
-      const preguntas = new Array()
+      for await (const organismo of organismosTransito) {
+        const pregunta = preguntaDB.find(p => p.servicioId == servicio.id && p.preguntaId == organismo.id)    
+        
+        
 
-      preguntasDB.forEach(pregunta => {
-        preguntas.push({
-          preguntaId: pregunta.id,
-          nombre: pregunta.nombre,
-          valor: pregunta.datos[0]?.valor ?? "",
-          nombreAlmacenado: pregunta.datos[0]?.nombreAlmacenado ?? "",
-          nombreOriginalArchivo: pregunta.datos[0]?.nombreOriginalArchivo ?? "",
-          ruta: pregunta.datos[0]?.ruta ?? "",
+        preguntas[servicio.mostrar].push({
+          preguntaId: organismo.id,
+          nombre: organismo.nombre,
+          valor: pregunta?.valor??'',
+          nombreAlmacenado: pregunta?.nombreAlmacenado??'',
+          nombreOriginalArchivo: pregunta?.nombreOriginalArchivo??'',
+          ruta: pregunta?.ruta??'',
+          servicioId: servicio.id,
         })
-      });
 
-      return{
-        preguntas,
-        editable
+
       }
+    }
 
-    } catch (error) {
-      console.log(error);
+    return {identificacionOrganismo, preguntas, editable}
 
-      throw new Errores(
-        `Se presento un problema al consultar el formulario`,
-        400
-      );
-    } */
   }
 
   async guardar(datos: any, documento: string, vigencia: number): Promise<any> {
@@ -112,9 +128,11 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
   }
 
   async enviar(documento: string, vigencia: number): Promise<any> {
-    const preguntas: Pregunta[] = await this.obtener(documento, vigencia);
+    const preguntas: any = await this.obtener(documento, vigencia);
     const faltantes = await this.validarTransito.validar(preguntas);
     let aprobado = true
+
+    
     if (faltantes.length >= 0) {
       aprobado = false
     }
