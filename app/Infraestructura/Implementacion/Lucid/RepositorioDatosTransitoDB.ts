@@ -41,23 +41,19 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
       vigencia
     };
 
-    const preguntas = new Array()
+    //const preguntas = new Array()
 
     const serviciosTercerizados = await TblServiciosTerverizados.query().orderBy('id', 'asc')
     const organismosTransito = await TblOrganismosTransitos.query().orderBy('id', 'asc')
    // return serviciosTercerizados
     const preguntaDB = await TblDatosTransitos.query().where({ vigiladoId:documento, vigencia: vigencia })
 
+    const preguntas = {};
 
-    for await (const servicio of serviciosTercerizados) {
-      preguntas[servicio.mostrar] = new Array()
-      console.log(servicio.mostrar);
-      
+    for await (const servicio of serviciosTercerizados) {   
+      preguntas[servicio.mostrar] = []; 
       for await (const organismo of organismosTransito) {
-        const pregunta = preguntaDB.find(p => p.servicioId == servicio.id && p.preguntaId == organismo.id)    
-        
-        
-
+        const pregunta = preguntaDB.find(p => p.servicioId == servicio.id && p.preguntaId == organismo.id)  
         preguntas[servicio.mostrar].push({
           preguntaId: organismo.id,
           nombre: organismo.nombre,
@@ -68,8 +64,9 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
           servicioId: servicio.id,
         })
 
-
       }
+
+      
     }
 
     return {identificacionOrganismo, preguntas, editable}
@@ -129,11 +126,12 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
   async enviar(documento: string, vigencia: number): Promise<any> {
     const preguntas: any = await this.obtener(documento, vigencia);
-    const faltantes = await this.validarTransito.validar(preguntas);
+    
+    const {faltantesPreguntas,faltantesIdentificacion} = await this.validarTransito.validar(preguntas);
     let aprobado = true
 
     
-    if (faltantes.length >= 0) {
+    if (faltantesPreguntas.length > 0 || faltantesIdentificacion.length > 0) {
       aprobado = false
     }
     if (aprobado) {
@@ -142,7 +140,8 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
    
     return {
       aprobado,
-      faltantes,
+      faltantesPreguntas,
+      faltantesIdentificacion
     };
   }
 }
