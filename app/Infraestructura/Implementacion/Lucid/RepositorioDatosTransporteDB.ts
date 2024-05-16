@@ -89,7 +89,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
       aprobado = false
     }
     if (aprobado) {
-      this.estados.Log(documento,1004,vigencia,8)      
+      this.estados.estadoReporte(documento,1004,vigencia,8)      
     }
    
     return {

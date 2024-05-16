@@ -5,4 +5,6 @@ export interface Pregunta {
     nombreAlmacenado: string;
     nombreOriginalArchivo: string;
     ruta: string;
+    anio?: number;
+
 }

@@ -13,9 +13,7 @@ export class ServicioEstados {
         logEstados.formularioId = formularioId
         logEstados.vigencia = vigencia
         await logEstados.save()
-      }
-
-      this.estadoReporte(vigiladoId, estadoId, vigencia, formularioId)
+      }      
 
   }
 
@@ -26,6 +24,8 @@ export class ServicioEstados {
     const existe = await TblActualEstados.query().where(
       {'tae_vigilado_id': vigiladoId, 'tae_formulario_id': formularioId, 'tae_anio_activo': vigencia}).first()
         if (!existe) {
+          console.log("no existe ", estadoId);
+          
           const logEstados = new TblActualEstados()
           logEstados.vigiladoId = vigiladoId
           logEstados.estadoId = estadoId
@@ -33,6 +33,8 @@ export class ServicioEstados {
           logEstados.vigencia = vigencia
           await logEstados.save()
         }else{
+          console.log("existe ", estadoId);
+
           existe.estadoId = estadoId
           await existe.save()
         }

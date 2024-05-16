@@ -135,7 +135,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
       aprobado = false
     }
     if (aprobado) {
-      this.estados.Log(documento,1004,vigencia,9)      
+      this.estados.estadoReporte(documento,1004,vigencia,9)      
     }
    
     return {

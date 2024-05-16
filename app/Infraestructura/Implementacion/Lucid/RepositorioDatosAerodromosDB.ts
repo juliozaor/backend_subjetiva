@@ -1,9 +1,5 @@
 import { RepositorioDatosPortuaria } from "App/Dominio/Repositorios/RepositorioDatosPortuaria";
 import Errores from "App/Exceptions/Errores";
-import TblDatosPortuarias from "App/Infraestructura/Datos/Entidad/DatosPortuarias";
-import TblSociedadesPortuarias from "App/Infraestructura/Datos/Entidad/SociedadesPortuarias";
-import { ValidarPortuaria } from "../../Util/ValidarPortuaria";
-import { Pregunta } from "../dto/pregunta";
 import { ServicioEstados } from "App/Dominio/Datos/Servicios/ServicioEstados";
 import TblDatosIdentificaciones from "App/Infraestructura/Datos/Entidad/DatosIdentificaciones";
 import TblDatosReportes from "App/Infraestructura/Datos/Entidad/DatosReportes";
@@ -13,9 +9,10 @@ import TblIdentificacionVigilados from "App/Infraestructura/Datos/Entidad/Identi
 import TblReporteEntidadesTerritoriales from "App/Infraestructura/Datos/Entidad/ReporteEntidadesTerritoriales";
 import TblIngresosBrutosEntidadesTerritoriales from "App/Infraestructura/Datos/Entidad/IngresosBrutosEntidadesTerritoriales";
 import TblDigtamenRevisorFiscals from "App/Infraestructura/Datos/Entidad/DigtamenRevisorFiscals";
+import { ValidarAerodromo } from "App/Infraestructura/Util/ValidarAerodromo";
 export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
   private estados = new ServicioEstados()
-  private validarPortuaria = new ValidarPortuaria();
+  private validarAerodromo = new ValidarAerodromo();
   async obtener(documento: string, vigencia: number): Promise<any> {
     const editable = await this.estados.consultarEnviado(documento,vigencia,7)
     this.estados.Log(documento,1002,vigencia,7)
@@ -33,6 +30,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
               nombreAlmacenado: pregunta.datos[0]?.nombreAlmacenado ?? "",
               nombreOriginalArchivo: pregunta.datos[0]?.nombreOriginalArchivo ?? "",
               ruta: pregunta.datos[0]?.ruta ?? "",
+              anio: pregunta.datos[0]?.anio ?? "",
           }));
       };
   
@@ -95,19 +93,22 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
   async enviar(documento: string, vigencia: number): Promise<any> {
     
     const preguntas: any = await this.obtener(documento, vigencia);
-    
-    const faltantes = await this.validarPortuaria.validar(preguntas);
+
+    const {faltantesIdentificacion, faltantesReporte, faltantesIngresos, faltantesDigtamen} = await this.validarAerodromo.validar(preguntas);
     let aprobado = true
-    if (faltantes.length > 0) {
+    if (faltantesIdentificacion.length > 0 || faltantesReporte.length > 0 ||faltantesIngresos.length > 0 ||faltantesDigtamen.length > 0)  {
       aprobado = false
     }
     if (aprobado) {
-      this.estados.Log(documento,1004,vigencia,7)      
+      this.estados.estadoReporte(documento,1004,vigencia,553)      
     }
    
     return {
       aprobado,
-      faltantes,
+      faltantesIdentificacion,
+      faltantesReporte,
+      faltantesIngresos,
+      faltantesDigtamen
     };
   }
 
