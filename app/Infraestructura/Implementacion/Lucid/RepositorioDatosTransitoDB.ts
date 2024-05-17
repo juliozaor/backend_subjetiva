@@ -13,7 +13,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
   private estados = new ServicioEstados()
   private validarTransito = new ValidarTransito();
   async obtener(documento: string, vigencia: number): Promise<any> {
-    const editable = await this.estados.consultarEnviado(documento,vigencia,7)
+    const editable = await this.estados.consultarEnviado(documento,vigencia,9)
 
     const identificacionOrganismoDB = await TblEstadosServiciosTercerizados.query()
     .where("vigencia", vigencia)

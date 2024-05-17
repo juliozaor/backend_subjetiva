@@ -14,7 +14,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
   private estados = new ServicioEstados()
   private validarAerodromo = new ValidarAerodromo();
   async obtener(documento: string, vigencia: number): Promise<any> {
-    const editable = await this.estados.consultarEnviado(documento,vigencia,7)
+    const editable = await this.estados.consultarEnviado(documento,vigencia,553)
     this.estados.Log(documento,1002,vigencia,553)
     try {
       const consultarDatos = async (modelo) => {
@@ -36,8 +36,8 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
   
       const identificacion = await consultarDatos(TblIdentificacionVigilados);
       const reporte = await consultarDatos(TblReporteEntidadesTerritoriales);
-     const ingresos = await consultarDatos(TblIngresosBrutosEntidadesTerritoriales);
-       const digtamen = await consultarDatos(TblDigtamenRevisorFiscals);
+      const ingresos = await consultarDatos(TblIngresosBrutosEntidadesTerritoriales);
+      const digtamen = await consultarDatos(TblDigtamenRevisorFiscals);
   
       return {
           identificacion,

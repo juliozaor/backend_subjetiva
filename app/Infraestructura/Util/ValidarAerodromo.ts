@@ -1,12 +1,9 @@
-import { EstadosServicioTercerizado } from "App/Dominio/Datos/Entidades/EstadosServicioTercerizado";
-import { Pregunta } from "../Implementacion/dto/pregunta";
+
 
 export class ValidarAerodromo {
   public async validar(
     preguntasDB: any
   ): Promise<{ faltantesIdentificacion, faltantesReporte, faltantesIngresos, faltantesDigtamen }> {
-    /* identificacion, reporte, ingresos, digtamen */
-    /* let identificacionOrganismo: EstadosServicioTercerizado = preguntasDB.identificacionOrganismo; */
     const { identificacion, reporte, ingresos, digtamen } = preguntasDB;
 
     const documentosIdentificacion = [

@@ -20,7 +20,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
 
       this.estados.Log(documento,1002,vigencia,8)
 
-      const editable = await this.estados.consultarEnviado(documento,vigencia,7)
+      const editable = await this.estados.consultarEnviado(documento,vigencia,8)
       
       const preguntas = new Array()
 
