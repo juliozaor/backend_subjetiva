@@ -8,7 +8,7 @@ export class TblMaestraSociedades extends BaseModel {
   @column({ columnName: 'mso_nombre' })
   public nombre: string;
   @column({ columnName: 'mso_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

@@ -8,7 +8,7 @@ export class TblMaestraFusiones extends BaseModel {
   @column({ columnName: 'mfu_nombre' })
   public nombre: string;
   @column({ columnName: 'mfu_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

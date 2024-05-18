@@ -37,7 +37,7 @@ export class ValidarTransito {
                     preguntas[servicio].forEach(pregunta => {
 
                         const id = pregunta.preguntaId
-                        if(id == 17 || id == 18){
+                        if(id == 17 || id == 8){
                             if(pregunta.nombreAlmacenado == null || pregunta.nombreAlmacenado == undefined || pregunta.nombreAlmacenado == ''){
                                 faltantesPreguntas[servicio].push(id)
                             }                           
