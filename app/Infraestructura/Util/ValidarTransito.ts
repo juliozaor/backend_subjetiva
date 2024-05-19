@@ -50,7 +50,7 @@ export class ValidarTransito {
                                         }
                                     }
                             
-                        }else{
+                        }else if(id != 0){
                             if(pregunta.valor == null || pregunta.valor == undefined || pregunta.valor == '' ){
                                 faltantesPreguntas[servicio].push(id)
                             }

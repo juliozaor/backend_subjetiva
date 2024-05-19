@@ -128,12 +128,38 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
     const preguntas: any = await this.obtener(documento, vigencia);
     
     const {faltantesPreguntas,faltantesIdentificacion} = await this.validarTransito.validar(preguntas);
+    const {
+      gruas,
+      patios,
+      tramitesTransito,
+      deteccionInfracciones,
+      procesosContravencionales,
+      procesoCobroCoactivo,
+      procesoCobroPersuasivo,
+      recaudoMultas,
+      otros
+    } = faltantesPreguntas
+
     let aprobado = true
 
     
-    if (faltantesPreguntas.length > 0 || faltantesIdentificacion.length > 0) {
+    if (faltantesIdentificacion.length > 0) {
       aprobado = false
     }
+
+    if (gruas.length > 0 ||
+      patios.length > 0 ||
+      tramitesTransito.length > 0 ||
+      deteccionInfracciones.length > 0 ||
+      procesosContravencionales.length > 0 ||
+      procesoCobroCoactivo.length > 0 ||
+      procesoCobroPersuasivo.length > 0 ||
+      recaudoMultas.length > 0 ||
+      otros.length > 0) {
+      aprobado = false
+    }
+
+
     if (aprobado) {
       this.estados.estadoReporte(documento,1004,vigencia,9)      
     }
