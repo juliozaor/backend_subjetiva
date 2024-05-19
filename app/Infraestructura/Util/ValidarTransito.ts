@@ -43,7 +43,7 @@ export class ValidarTransito {
                             }                           
             
                         }else
-                        if (id == 0 && servicio == 'otros') {
+                        if (id == 19 && servicio == 'otros') {
                                     if(pregunta.valor == null || pregunta.valor == undefined || pregunta.valor == ''){
                                         if (!faltantesPreguntas[servicio].includes(id)) {
                                             faltantesPreguntas[servicio].push(id);
