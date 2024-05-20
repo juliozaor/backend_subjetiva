@@ -235,7 +235,7 @@ export default class ControladorReporte {
     response.status(200).send({ delegaturas });
   }
   public async naturalezasD({ response }: HttpContextContract) {
-    const delegaturasD = await TblMaestraNaturalezasDs.query().orderBy('id', 'asc');
-    response.status(200).send({ delegaturasD });
+    const naturalezasD = await TblMaestraNaturalezasDs.query().orderBy('id', 'asc');
+    response.status(200).send({ naturalezasD });
   }
 }
