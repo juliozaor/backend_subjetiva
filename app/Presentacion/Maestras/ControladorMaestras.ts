@@ -16,6 +16,7 @@ import TblMaestraHipotesisMarchas from 'App/Infraestructura/Datos/Entidad/MHipot
 import { TblMaestraInversiones } from 'App/Infraestructura/Datos/Entidad/MInversiones';
 import TblMaestraMonedaPresentaciones from 'App/Infraestructura/Datos/Entidad/MMonedaPresentaciones';
 import TblMaestraNaturalezas from 'App/Infraestructura/Datos/Entidad/MNaturalezas';
+import TblMaestraNaturalezasDs from 'App/Infraestructura/Datos/Entidad/MNaturalezasD';
 import { TblMaestraNits } from 'App/Infraestructura/Datos/Entidad/MNits';
 import TblMaestraObligatoriedades from 'App/Infraestructura/Datos/Entidad/MObligatoriedades';
 import TblMaestraOpinionDictamenes from 'App/Infraestructura/Datos/Entidad/MOpinionDigtamenes';
@@ -232,5 +233,9 @@ export default class ControladorReporte {
   public async delegaturas({ response }: HttpContextContract) {
     const delegaturas = await TblMaestraDelegaturas.query().orderBy('id', 'asc');
     response.status(200).send({ delegaturas });
+  }
+  public async naturalezasD({ response }: HttpContextContract) {
+    const delegaturasD = await TblMaestraNaturalezasDs.query().orderBy('id', 'asc');
+    response.status(200).send({ delegaturasD });
   }
 }
