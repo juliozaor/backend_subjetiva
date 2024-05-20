@@ -9,10 +9,10 @@ export class ServicioUsuario {
         private repositorioUsuarios: RepositorioUsuario,
     ) { }
 
-    async actualizarInformacionUsuario(informacion: PeticionActualizarUsuario, identificacion: string): Promise<Usuario> {
+    async actualizarInformacionUsuario(informacion: PeticionActualizarUsuario, identificacion: string, formularios: any): Promise<Usuario> {        
         let usuario = await this.obtenerUsuario(identificacion)
         usuario = this.actualizarInformacion(usuario, informacion)
-        await this.repositorioUsuarios.actualizarUsuario(usuario.id, usuario)
+        await this.repositorioUsuarios.actualizarUsuario(usuario.id, usuario, formularios)
         return usuario
     }
 
@@ -33,7 +33,7 @@ export class ServicioUsuario {
 
     private actualizarInformacion(
         usuario: Usuario,
-        informacion: PeticionActualizarUsuario): Usuario {
+        informacion: PeticionActualizarUsuario): Usuario {            
         for (const nuevoDato in informacion) {
             usuario[nuevoDato] = informacion[nuevoDato]
         }

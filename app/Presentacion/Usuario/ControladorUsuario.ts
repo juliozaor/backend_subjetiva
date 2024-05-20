@@ -11,7 +11,9 @@ export default class ControladorUsuario {
     async actualizarUsuario({ request, response }: HttpContextContract) {
         const identificacion = request.param('identificacion')
         const payload = await request.validate({ schema: validarActualizarUsuario })
-        const usuario = await this.servicio.actualizarInformacionUsuario(payload, identificacion)
+        const {formularios} = request.all()
+        
+        const usuario = await this.servicio.actualizarInformacionUsuario(payload, identificacion, formularios)
         response.status(200).send(usuario)
     }
 

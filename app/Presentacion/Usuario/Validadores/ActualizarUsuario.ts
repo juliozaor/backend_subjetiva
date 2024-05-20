@@ -9,5 +9,5 @@ export const validarActualizarUsuario = schema.create({
     departamentoId: schema.number.optional(),
     municipioId: schema.number.optional(),
     idRol: schema.string.optional({ trim: true }),
-    identificacion: schema.string.optional({ trim: true }),
+    identificacion: schema.string.optional({ trim: true })
 }) 
