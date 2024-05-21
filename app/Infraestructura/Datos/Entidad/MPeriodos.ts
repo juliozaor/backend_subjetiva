@@ -8,7 +8,7 @@ export class TblMaestraPeriodos extends BaseModel {
   @column({ columnName: 'mpo_nombre' })
   public nombre: string;
   @column({ columnName: 'mpo_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

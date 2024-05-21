@@ -8,7 +8,7 @@ export class TblMaestraFinancierosN extends BaseModel {
   @column({ columnName: 'mfn_nombre' })
   public nombre: string;
   @column({ columnName: 'mfn_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

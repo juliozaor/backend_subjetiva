@@ -8,7 +8,7 @@ export class TblMaestraSN extends BaseModel {
   @column({ columnName: 'mas_nombre' })
   public nombre: string;
   @column({ columnName: 'mas_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

@@ -8,7 +8,7 @@ export class TblMaestraNits extends BaseModel {
   @column({ columnName: 'mni_nombre' })
   public nombre: string;
   @column({ columnName: 'mni_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

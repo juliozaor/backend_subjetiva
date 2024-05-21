@@ -20,4 +20,5 @@ export class Usuario{
   esDepartamental?: number;
   abrirModal?:boolean;
   reportaOtroMunicipio?:boolean;
+  formularios?:any
 }

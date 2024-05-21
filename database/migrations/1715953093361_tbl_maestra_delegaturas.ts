@@ -1,14 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'tbl_transitos'
+  protected tableName = 'tbl_maestra_delegaturas'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('tra_id')
-      table.text('tra_nombre')
-      table.integer('tra_frm_id').references('frm_id').inTable('tbl_formularios')
-      table.boolean('tra_estado').defaultTo(true)
+      table.increments('mde_id')
+      table.text('mde_nombre')
+      table.boolean('mde_estado').defaultTo(true)
     })
   }
 

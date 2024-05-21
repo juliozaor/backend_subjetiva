@@ -8,7 +8,7 @@ export class TblMaestraInversiones extends BaseModel {
   @column({ columnName: 'miv_nombre' })
   public nombre: string;
   @column({ columnName: 'miv_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

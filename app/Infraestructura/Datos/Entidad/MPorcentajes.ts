@@ -8,7 +8,7 @@ export class TblMaestraPorcentajes extends BaseModel {
   @column({ columnName: 'mpr_nombre' })
   public nombre: string;
   @column({ columnName: 'mpr_estado' })
-  public estadi: boolean;
+  public estado: boolean;
 }
 
 

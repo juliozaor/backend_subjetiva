@@ -86,7 +86,7 @@ export default class TblUsuarios extends BaseModel {
     pivotForeignKey: 'fvi_vigilado_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'fvi_frm_id', 
-    /* pivotColumns: ['tcc_estado'], */
+    pivotColumns: ['fvi_estado'],
     pivotTable: 'tbl_formulario_vigilados'
   })
   public formularios: ManyToMany<typeof TblFormularios>
