@@ -52,7 +52,12 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
   async obtenerUsuarioPorId(id: string): Promise<any> {
    /*  const usuario = await TblUsuarios.findOrFail(id);
     return usuario.obtenerUsuario(); */
-    return await TblUsuarios.query().preload('formularios').where('usn_id',id).first();
+    const usuario = await TblUsuarios.query().preload('formularios').where('usn_id',id).first();
+    usuario?.formularios.map( formulario => {
+      formulario.estado =  formulario.$extras.pivot_fvi_estado
+    })
+    
+    return usuario?.formularios
   }
 
   async obtenerUsuarioPorRol(rol: string): Promise<Usuario[]> {
