@@ -24,6 +24,9 @@ export default class TblDatosIngresos extends BaseModel {
     this.valor = dato.valor
     this.vigencia = dato.vigencia
     this.anio = dato.anio
+    this.nombreAlmacenado = dato.nombreAlmacenado
+    this.nombreOriginalArchivo = dato.nombreOriginalArchivo
+    this.ruta = dato.ruta
   }
 
   public estableceDatoConId(dato: DatoIngreso) {
@@ -32,6 +35,9 @@ export default class TblDatosIngresos extends BaseModel {
     this.valor = dato.valor
     this.vigencia = dato.vigencia
     this.anio = dato.anio
+    this.nombreAlmacenado = dato.nombreAlmacenado
+    this.nombreOriginalArchivo = dato.nombreOriginalArchivo
+    this.ruta = dato.ruta
   }
 
   public obtenerDato(): DatoIngreso {
@@ -42,6 +48,9 @@ export default class TblDatosIngresos extends BaseModel {
     dato.valor = this.valor
     dato.vigencia = this.vigencia
     dato.anio = this.anio
+    dato.nombreAlmacenado = this.nombreAlmacenado
+    dato.nombreOriginalArchivo = this.nombreOriginalArchivo
+    dato.ruta = this.ruta
     return dato
   }
 

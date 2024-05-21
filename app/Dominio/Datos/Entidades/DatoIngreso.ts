@@ -4,5 +4,8 @@ export class DatoIngreso {
   vigiladoId: string;
   valor: string;
   anio: number;      
-  vigencia: number;      
+  vigencia: number;     
+  nombreAlmacenado: string;
+  nombreOriginalArchivo: string;
+  ruta: string; 
 }

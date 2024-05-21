@@ -71,6 +71,8 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
                 this.estados.Log(documento, 1003, vigencia, 553);
                 return true;
             } catch (error) {
+              console.log(error);
+              
                 throw new Errores(
                     `Se presentó un problema al guardar el formulario`,
                     400
