@@ -57,7 +57,7 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
       formulario.estado =  formulario.$extras.pivot_fvi_estado
     })
     
-    return usuario?.formularios
+    return usuario
   }
 
   async obtenerUsuarioPorRol(rol: string): Promise<Usuario[]> {
