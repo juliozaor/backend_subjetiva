@@ -50,7 +50,18 @@ export class ValidarAerodromo {
             continuarIteracion = false; // No continuar iterando si el valor es 5
             return;
         }
-      } else if (documentosIdentificacion.includes(id)) {
+      } else if (id == 73) {
+       
+        
+        if (idnt.valor == null || idnt.valor == undefined || idnt.valor == "") {
+          if (!faltantesIdentificacion.includes(id)) {
+            faltantesIdentificacion.push(id);
+          }
+        } else if (idnt.valor == "4") {
+            continuarIteracion = false; // No continuar iterando si el valor es 4
+            return;
+        }
+      }else if (documentosIdentificacion.includes(id)) {
         if (
           idnt.nombreAlmacenado == null ||
           idnt.nombreAlmacenado == undefined ||
