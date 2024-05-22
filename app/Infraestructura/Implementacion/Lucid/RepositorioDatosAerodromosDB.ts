@@ -54,7 +54,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
   }
 
   async guardar(datos: any, documento: string, vigencia: number): Promise<any> {
-    const { identificacion, reporte, ingresos, digtamen } = datos;
+    const { identificacion, reporte, ingresos, dictamen } = datos;
 
     const guardarDatos = async (preguntas: any[], modelo: any) => {
         if (preguntas) {
@@ -63,6 +63,8 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
                 vigiladoId: documento,
                 vigencia: vigencia,
             }));
+            console.log(preguntasGuardadas);
+            
             try {
                 await modelo.updateOrCreateMany(
                     ["preguntaId", "vigiladoId", "vigencia"],
@@ -85,7 +87,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
         guardarDatos(identificacion, TblDatosIdentificaciones),
         guardarDatos(reporte, TblDatosReportes),
         guardarDatos(ingresos, TblDatosIngresos),
-        guardarDatos(digtamen, TblDatosDigtamen)
+        guardarDatos(dictamen, TblDatosDigtamen)
     ]);
 
     return true;
