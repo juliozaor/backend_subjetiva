@@ -33,10 +33,36 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
               anio: pregunta.datos[0]?.anio ?? "",
           }));
       };
+
+      const consultarDatosIngresos = async (modelo) => {
+        const datosDB = await modelo.query().preload("datos", (sqlDatos) => {
+            sqlDatos.where("vigencia", vigencia);
+            sqlDatos.where("vigiladoId", documento);
+        });
+
+        const ing = new Array()
+
+        datosDB.forEach(pregunta => {
+          pregunta.datos.forEach(dato => {
+            ing.push({
+              preguntaId: pregunta.id,
+              nombre: pregunta.nombre,
+              valor: dato.valor ?? "",
+              nombreAlmacenado: dato.nombreAlmacenado ?? "",
+              nombreOriginalArchivo: dato.nombreOriginalArchivo ?? "",
+              ruta: dato.ruta ?? "",
+              anio: dato.anio ?? "",
+          })
+          });
+          
+        });
+
+        return ing
+    };
   
       const identificacion = await consultarDatos(TblIdentificacionVigilados);
       const reporte = await consultarDatos(TblReporteEntidadesTerritoriales);
-      const ingresos = await consultarDatos(TblIngresosBrutosEntidadesTerritoriales);
+      const ingresos = await consultarDatosIngresos(TblIngresosBrutosEntidadesTerritoriales);
       const digtamen = await consultarDatos(TblDigtamenRevisorFiscals);
   
       return {
@@ -63,7 +89,6 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
                 vigiladoId: documento,
                 vigencia: vigencia,
             }));
-            console.log(preguntasGuardadas);
             
             try {
                 await modelo.updateOrCreateMany(
@@ -72,9 +97,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
                 );
                 this.estados.Log(documento, 1003, vigencia, 553);
                 return true;
-            } catch (error) {
-              console.log(error);
-              
+            } catch (error) {              
                 throw new Errores(
                     `Se presentó un problema al guardar el formulario`,
                     400
@@ -83,10 +106,34 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
         }
     };
 
+    const guardarDatosIngresos = async (preguntas: any[], modelo: any) => {
+      if (preguntas) {
+          const preguntasGuardadas = preguntas.map(pregunta => ({
+              ...pregunta,
+              vigiladoId: documento,
+              vigencia: vigencia,
+          }));
+          
+          try {
+              await modelo.updateOrCreateMany(
+                  ["preguntaId", "vigiladoId", "vigencia", "anio"],
+                  preguntasGuardadas
+              );
+              this.estados.Log(documento, 1003, vigencia, 553);
+              return true;
+          } catch (error) {              
+              throw new Errores(
+                  `Se presentó un problema al guardar el formulario`,
+                  400
+              );
+          }
+      }
+  };
+
     await Promise.all([
         guardarDatos(identificacion, TblDatosIdentificaciones),
         guardarDatos(reporte, TblDatosReportes),
-        guardarDatos(ingresos, TblDatosIngresos),
+        guardarDatosIngresos(ingresos, TblDatosIngresos),
         guardarDatos(dictamen, TblDatosDigtamen)
     ]);
 
