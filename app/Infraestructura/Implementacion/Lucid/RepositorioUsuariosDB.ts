@@ -90,6 +90,15 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
     return null;
   }
 
+  async obtenerUsuarioPorUsuario2 (nombreUsuario: string): Promise<Usuario | null>{
+    const usuarioDb = await TblUsuarios.query().where('usuario', '=', nombreUsuario).first()
+    if(usuarioDb){
+      const usuario = usuarioDb.obtenerUsuario()      
+      return usuario
+    }
+    return null
+  }
+
   async guardarUsuario(usuario: Usuario): Promise<Usuario> {
     const formularios = usuario.formularios;
 
@@ -131,7 +140,7 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
         const usuarioAnterior = usuarioRetorno;
         usuarioRetorno.estableceUsuarioConId(usuario);
         await usuarioRetorno.save();
-        if (usuario.idRol == "003") {
+        if (usuario.idRol == "003" && formularios) {
           const formularioGuardar = formularios.map((formulario) => ({
             ...formulario,
             vigiladoId: usuario.identificacion,

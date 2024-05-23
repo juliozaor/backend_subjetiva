@@ -9,8 +9,9 @@ export interface RepositorioUsuario {
   obtenerUsuarioPorId(id: string): Promise<Usuario>
   obtenerUsuarioPorRol(rol: string): Promise<Usuario[]>
   guardarUsuario(usuario: Usuario): Promise<Usuario>
-  actualizarUsuario(id: string, usuario: Usuario, formularios:any, payload?:PayloadJWT, ): Promise<Usuario>
+  actualizarUsuario(id: string, usuario: Usuario, formularios?:any, payload?:PayloadJWT, ): Promise<Usuario>
   obtenerUsuarioPorUsuario(nombreUsuario: string): Promise<Usuario | null>
+  obtenerUsuarioPorUsuario2(nombreUsuario: string): Promise<Usuario | null>
   caracterizacion(idUsuario:string,idRol:string, idEncuesta?:number): Promise<any>
   obtenerMunicipiosDeUsuario(idVigilado: string): Promise<ReportaMunicipios[]>
 }
