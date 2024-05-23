@@ -3,6 +3,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import TblMaestraCategorias from 'App/Infraestructura/Datos/Entidad/MCategorias';
 import TblMaestraCategoriasNs from 'App/Infraestructura/Datos/Entidad/MCategoriasNs';
+import TblMaestraCodigos from 'App/Infraestructura/Datos/Entidad/MCodigos';
 import TblMaestraDelegaturas from 'App/Infraestructura/Datos/Entidad/MDelegaturas';
 import TblMaestraDictamenes from 'App/Infraestructura/Datos/Entidad/MDigtamenes';
 import { TblMaestraDomicilios } from 'App/Infraestructura/Datos/Entidad/MDomicilios';
@@ -237,5 +238,9 @@ export default class ControladorReporte {
   public async naturalezasD({ response }: HttpContextContract) {
     const naturalezasD = await TblMaestraNaturalezasDs.query().orderBy('id', 'asc');
     response.status(200).send({ naturalezasD });
+  }
+  public async codigosCiiu({ response }: HttpContextContract) {
+    const codigosCiiu = await TblMaestraCodigos.query().orderBy('id', 'asc');
+    response.status(200).send({ codigosCiiu });
   }
 }
