@@ -114,6 +114,8 @@ else if (id == 33) {
             continuarIteracion = false; // No continuar iterando si el valor es 4
             return;
         }
+      }else if (id == 71) {       
+        //pasar
       }else if (documentosIdentificacion.includes(id)) {
         if (
           idnt.nombreAlmacenado == null ||
