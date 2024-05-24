@@ -55,7 +55,7 @@ export class ServicioEmail{
 
   public async verificarUsuario (usuario: string): Promise< Usuario> {
    
-      const usuarioDB = await this.servicioUsuarios.obtenerUsuarioPorUsuario(usuario)
+      const usuarioDB = await this.servicioUsuarios.obtenerUsuarioPorUsuario2(usuario)
       if(!usuarioDB){
         throw new Exception('usuario no encontrado y/o correo incorrecto, (error: 001)', 400)
        // throw new Exception('No se encuentra usuario registrado', 400)

@@ -40,6 +40,7 @@ Route.group(() => {
   Route.get('/tipo_vigilados', accion_path + '.tipo_vigilados');
   Route.get('/delegaturas', accion_path + '.delegaturas');
   Route.get('/naturalezasD', accion_path + '.naturalezasD');
+  Route.get('/codigosCiiu', accion_path + '.codigosCiiu');
 
 }).prefix('api/v1/maestras').middleware('autenticacionJwt')
 

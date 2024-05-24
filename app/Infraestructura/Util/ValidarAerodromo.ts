@@ -39,7 +39,36 @@ export class ValidarAerodromo {
             }
           }
         }
-      } else if (id == 59) {
+      } 
+      
+     else if (id == 35 || id == 36 || id == 38) {
+        const preguntaAnterior = identificacion.find(p => p.preguntaId == 34)    
+            if(preguntaAnterior?.valor == '1') {
+                if(idnt.valor == null || idnt.valor == undefined || idnt.valor == ''){
+                    if (!faltantesIdentificacion.includes(id)) {
+                      faltantesIdentificacion.push(id);
+                    }
+                }
+            }
+        
+    }
+
+    else if (id == 37) {
+      const preguntaAnterior = identificacion.find(p => p.preguntaId == 34)    
+          if(preguntaAnterior?.valor == '1') {
+            if (
+              idnt.nombreAlmacenado == null ||
+              idnt.nombreAlmacenado == undefined ||
+              idnt.nombreAlmacenado == ""
+            ) {
+              faltantesIdentificacion.push(id);
+            }
+          }
+      
+  }
+    
+      
+      else if (id == 59) {
        
         
         if (idnt.valor == null || idnt.valor == undefined || idnt.valor == "") {

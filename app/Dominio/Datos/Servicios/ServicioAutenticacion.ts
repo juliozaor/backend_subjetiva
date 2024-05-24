@@ -53,6 +53,7 @@ export class ServicioAutenticacion {
 
   public async iniciarSesion(usuario: string, contrasena: string): Promise<RespuestaInicioSesion> {
     const usuarioVerificado = await this.verificarUsuario(usuario)
+    
     let registroDeBloqueo = await this.repositorioBloqueo.obtenerRegistroPorUsuario(usuarioVerificado.identificacion)
     if (!registroDeBloqueo) {
       registroDeBloqueo = await this.crearRegistroDeBloqueo(usuarioVerificado.identificacion)
@@ -70,7 +71,7 @@ export class ServicioAutenticacion {
     if (!await this.encriptador.comparar(contrasena, usuarioVerificado.clave)) {
       this.manejarIntentoFallido(registroDeBloqueo)
       //this.servicioEstado.Log(usuario, 1011)
-      throw new Exception('Credenciales incorrectas, por favor intente recuperar contraseña con su correo registrado en Vigia', 400)
+      throw new Exception('Credenciales incorrectas, por favor intente recuperar contraseña con su correo registrado en Vigia.', 400)
     }
 
     const rolUsuario = await this.repositorioAutorizacion.obtenerRolConModulosYPermisos(usuarioVerificado.idRol)
@@ -131,7 +132,7 @@ export class ServicioAutenticacion {
   }
 
   public async verificarUsuario(usuario: string): Promise<Usuario> {
-    const usuarioDB = await this.servicioUsuario.obtenerUsuarioPorUsuario(usuario)
+    const usuarioDB = await this.servicioUsuario.obtenerUsuarioPorUsuario2(usuario)
     if (!usuarioDB) {
       throw new Exception('Credenciales incorrectas, por favor intente recuperar contraseña con su correo registrado en Vigia', 400)
     }

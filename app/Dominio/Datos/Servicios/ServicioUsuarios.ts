@@ -37,6 +37,10 @@ export class ServicioUsuarios {
     return this.repositorio.obtenerUsuarioPorUsuario(nombreUsuario);
   }
 
+  async obtenerUsuarioPorUsuario2(nombreUsuario: string): Promise<Usuario | null> {
+    return this.repositorio.obtenerUsuarioPorUsuario2(nombreUsuario);
+  }
+
   async guardarUsuario(usuario: Usuario, payload:PayloadJWT): Promise<Usuario> {
     if(payload.idRol !== '006' && payload.idRol !== '001'){
       throw new Error("Usted no tiene autorización para crear usuarios");      
@@ -46,7 +50,7 @@ export class ServicioUsuarios {
     usuario.clave = await this.encriptador.encriptar(clave)
     usuario.usuario = usuario.identificacion.toString()
     const user = this.repositorio.guardarUsuario(usuario);
-    /* await this.enviadorEmail.enviarTemplate<Credenciales>({ 
+    await this.enviadorEmail.enviarTemplate<Credenciales>({ 
       asunto: `Bienvenido(a) ${usuario.nombre}`, 
       destinatarios: usuario.correo,
     }, new EmailBienvenida({ clave: clave, nombre: usuario.nombre, usuario: usuario.usuario, logo: Env.get('LOGO') }))
@@ -57,13 +61,13 @@ export class ServicioUsuarios {
       jsonNuevo: JSON.stringify(user),
       usuario: payload.documento,
       descripcion: 'Se creo un usuario'
-    }) */
+    })
 
     return user
   }
 
   async actualizarUsuario(id: string, usuario: Usuario, payload?:PayloadJWT): Promise<Usuario> {
-    usuario.clave = await this.encriptador.encriptar(usuario.clave)
+    usuario.clave = await this.encriptador.encriptar(usuario.clave)     
     return this.repositorio.actualizarUsuario(id, usuario, payload);
   }
 
