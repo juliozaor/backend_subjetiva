@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { ServicioAutenticacion } from 'App/Dominio/Datos/Servicios/ServicioAutenticacion'
 import { ServicioAutenticacionJWT } from 'App/Dominio/Datos/Servicios/ServicioJWT'
+import TblUsuarios from 'App/Infraestructura/Datos/Entidad/Usuario'
 import { EnviadorEmailAdonis } from 'App/Infraestructura/Email/EnviadorEmailAdonis'
 import { EncriptadorAdonis } from 'App/Infraestructura/Encriptacion/EncriptadorAdonis'
 import { RepositorioAutorizacionDB } from 'App/Infraestructura/Implementacion/Lucid/RepositorioAutorizacionDB'
@@ -46,6 +47,27 @@ export default class ControladorArchivoVariable {
     response.status(200).send({
       mensaje: 'Su contraseña ha sido cambiada exitosamente',
       estado: 200
+    })
+  }
+
+    public async validar ({ request, response }:HttpContextContract) {
+    const {nit} = request.all()
+    if(!nit){
+      return response.status(401).send({
+        mensaje: 'No se ha proporcionado el nit',
+        estado: 401
+      })
+    }
+    const existe = await TblUsuarios.query().preload('formularios').where('usn_usuario', nit).first()
+    if(existe && existe.idRol =='003'){
+      return response.status(200).send({
+        mensaje: `Usted debe registrar informacion en el aplicativo MESS - Modelos de Negocios Especiales`,
+        estado: true
+      })
+    }
+    return response.status(200).send({
+      mensaje: 'Usted no debe registrar informacion en el aplicativo MESS - Modelos de Negocios Especiales',
+      estado: false
     })
   }
 }

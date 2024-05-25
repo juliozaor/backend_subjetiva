@@ -71,7 +71,7 @@ export class ServicioSoporte {
     private enviarEmailNotificacion(soporte: Soporte) {
         const email = new EmailnotificacionCorreo({
             nombre: soporte.razonSocial, 
-            mensaje: `Por medio de la presente me permito informarle que su solicitud fue radicada con el No ${soporte.radicado}, en el aplicativo de SUBJETIVO.` , 
+            mensaje: `Por medio de la presente me permito informarle que su solicitud fue radicada con el No ${soporte.radicado}, en el aplicativo de MESS - Modelos de Negocios Especiales.` , 
             logo: Env.get('LOGO'),
             nit:soporte.nit
         })

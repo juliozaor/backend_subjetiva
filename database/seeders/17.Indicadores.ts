@@ -20,7 +20,7 @@ export default class extends BaseSeeder {
         codigo: '3'
       },{
         id: 4,
-        nombre: 'Cumplimiento de metas del SUBJETIVO',
+        nombre: 'Cumplimiento de metas del MESS - Modelos de Negocios Especiales',
         descripcion:'Registro de metas establecidas trimestralmente y reporte del porcentaje de cumplimiento, medido en forma acumulativa',
         codigo: '4'
       },{
@@ -55,12 +55,12 @@ export default class extends BaseSeeder {
         codigo: '10'
       },{
         id: 11,
-        nombre: 'Cumplimiento plan de formación en seguridad vial CPF SUBJETIVO',
-        descripcion:'Registro de avance trimestral del plan de formación en seguridad vial CPF SUBJETIVO, respecto a la programación de las capacitaciones reportado en la plataforma y el porcentaje de ejecución de estas, medido en forma acumulativa',
+        nombre: 'Cumplimiento plan de formación en seguridad vial CPF MESS - Modelos de Negocios Especiales',
+        descripcion:'Registro de avance trimestral del plan de formación en seguridad vial CPF MESS - Modelos de Negocios Especiales, respecto a la programación de las capacitaciones reportado en la plataforma y el porcentaje de ejecución de estas, medido en forma acumulativa',
         codigo: '11'
       },{
         id: 12,
-        nombre: 'Cobertura plan de formación en seguridad vial CPF SUBJETIVO',
+        nombre: 'Cobertura plan de formación en seguridad vial CPF MESS - Modelos de Negocios Especiales',
         descripcion:'Registro de colaboradores que asisten trimestralmente a cada capacitación en seguridad vial y porcentaje respecto al total de colaboradores, medido en forma acumulativa',
         codigo: '12'
       },{

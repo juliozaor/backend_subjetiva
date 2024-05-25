@@ -56,8 +56,8 @@ export class ServicioUsuarios {
     }, new EmailBienvenida({ clave: clave, nombre: usuario.nombre, usuario: usuario.usuario, logo: Env.get('LOGO') }))
     
     this.servicioAuditoria.Auditar({
-      accion: "Creación de usuarios SUBJETIVO",
-      modulo: "Usuarios SUBJETIVO",
+      accion: "Creación de usuarios ",
+      modulo: "Usuarios ",
       jsonNuevo: JSON.stringify(user),
       usuario: payload.documento,
       descripcion: 'Se creo un usuario'

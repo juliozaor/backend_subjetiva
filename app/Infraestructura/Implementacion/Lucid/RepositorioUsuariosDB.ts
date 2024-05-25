@@ -152,8 +152,8 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
         }
 
         this.servicioAuditoria.Auditar({
-          accion: "Actualizar Usuario SUBJETIVO",
-          modulo: "Usuarios SUBJETIVO",
+          accion: "Actualizar Usuario MESS - Modelos de Negocios Especiales",
+          modulo: "Usuarios MESS - Modelos de Negocios Especiales",
           jsonAnterior: JSON.stringify(usuarioAnterior),
           jsonNuevo: JSON.stringify(usuarioRetorno),
           usuario: payload?.documento ?? "",

@@ -413,14 +413,14 @@ export default class extends BaseSeeder {
         visible: false
       },
       {
-        nombre: 'Actividades programadas a partir del plan anual de trabajo SUBJETIVO primer trimestre ',
+        nombre: 'Actividades programadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales primer trimestre ',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 20,
         visible: false
       },
       {
-        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo SUBJETIVO primer trimestre ',
+        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales primer trimestre ',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 21,
@@ -442,14 +442,14 @@ export default class extends BaseSeeder {
         visible: true
       },
       {
-        nombre: 'Actividades programadas a partir del plan anual de trabajo SUBJETIVO segundo trimestre ',
+        nombre: 'Actividades programadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales segundo trimestre ',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 20,
         visible: true
       },
       {
-        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo SUBJETIVO segundo trimestre ',
+        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales segundo trimestre ',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 21,
@@ -471,14 +471,14 @@ export default class extends BaseSeeder {
         visible: true
       },
       {
-        nombre: 'Actividades programadas a partir del plan anual de trabajo SUBJETIVO tercer trimestre',
+        nombre: 'Actividades programadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales tercer trimestre',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 20,
         visible: true
       },
       {
-        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo SUBJETIVO tercer trimestre',
+        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales tercer trimestre',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 21,
@@ -500,14 +500,14 @@ export default class extends BaseSeeder {
         visible: true
       },
       {
-        nombre: 'Actividades programadas a partir del plan anual de trabajo SUBJETIVO cuarto trimestre',
+        nombre: 'Actividades programadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales cuarto trimestre',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 20,
         visible: true
       },
       {
-        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo SUBJETIVO cuarto trimestre',
+        nombre: 'Actividades ejecutadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales cuarto trimestre',
         tipoId: 0,
         orden: 1,
         subIndicadorId: 21,

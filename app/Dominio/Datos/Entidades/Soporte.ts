@@ -75,7 +75,7 @@ export class Soporte{
         const anio = DateTime.now().year
         //logica para generar radicado
         const consecutivo = String(this.id).padStart(6, '0')
-        this.radicado = `SUBJETIVO${anio}${consecutivo}`
+        this.radicado = `MESS${anio}${consecutivo}`
         return this.radicado
     }
 }

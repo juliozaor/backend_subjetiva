@@ -5,7 +5,7 @@ export default class extends BaseSeeder {
     await TblEvidencias.createMany([
       {
         id: 1,
-        nombre: 'Copia de las actas de reunión del comité SUBJETIVO, donde conste la investigación interna de los siniestros viales',
+        nombre: 'Copia de las actas de reunión del comité MESS - Modelos de Negocios Especiales, donde conste la investigación interna de los siniestros viales',
         orden: 1,
         formularioId: 1,
         subTipoId: 3,
@@ -63,7 +63,7 @@ export default class extends BaseSeeder {
         tamanio:5
       },{
         id: 8,
-        nombre: 'Copia del informe presentado trimestralmente por el lider SUBJETIVO al comité sobre la ejecución de los planes y los avances respectos a las metas',
+        nombre: 'Copia del informe presentado trimestralmente por el lider MESS - Modelos de Negocios Especiales al comité sobre la ejecución de los planes y los avances respectos a las metas',
         orden: 1,
         formularioId: 2,
         subTipoId: 3,
@@ -71,7 +71,7 @@ export default class extends BaseSeeder {
         tamanio:5
       },{
         id: 9,
-        nombre: 'Certificación suscrita por el Contador y Revisor Fiscal (si aplica) de los recursos empleados trimestralmente para el desarrollo del plan anual de trabajo SUBJETIVO, con el detalle de la destinación de los mismos',
+        nombre: 'Certificación suscrita por el Contador y Revisor Fiscal (si aplica) de los recursos empleados trimestralmente para el desarrollo del plan anual de trabajo MESS - Modelos de Negocios Especiales, con el detalle de la destinación de los mismos',
         orden: 1,
         formularioId: 2,
         subTipoId: 3,
@@ -87,7 +87,7 @@ export default class extends BaseSeeder {
         tamanio:5
       },{
         id: 11,
-        nombre: 'Copia del informe mensual presentado por el lider del SUBJETIVO al comité sobre el total de desplazamientos laborales realizados, las multas impuestas por exceso de velocidad, llamados de atención dentro de las instalaciones y las mediciones realizadas',
+        nombre: 'Copia del informe mensual presentado por el lider del MESS - Modelos de Negocios Especiales al comité sobre el total de desplazamientos laborales realizados, las multas impuestas por exceso de velocidad, llamados de atención dentro de las instalaciones y las mediciones realizadas',
         orden: 1,
         formularioId: 2,
         subTipoId: 3,
@@ -121,7 +121,7 @@ export default class extends BaseSeeder {
         tamanio:5
       },{
         id: 15,
-        nombre: 'Informe del lider del SUBJETIVO sobre las acciones correctivas y oportunidades de mejora implementadas conforme a la auditoría realizada desde el año 2021',
+        nombre: 'Informe del lider del MESS - Modelos de Negocios Especiales sobre las acciones correctivas y oportunidades de mejora implementadas conforme a la auditoría realizada desde el año 2021',
         orden: 1,
         formularioId: 2,
         subTipoId: 3,
@@ -191,7 +191,7 @@ export default class extends BaseSeeder {
 
       ,{
         id: 23,
-        nombre: 'Copia del informe mensual presentado por el lider del SUBJETIVO al comité sobre el programa de gestión de velocidad y las mediciones realizadas.',
+        nombre: 'Copia del informe mensual presentado por el lider del MESS - Modelos de Negocios Especiales al comité sobre el programa de gestión de velocidad y las mediciones realizadas.',
         orden: 1,
         formularioId: 4,
         subTipoId: 3,

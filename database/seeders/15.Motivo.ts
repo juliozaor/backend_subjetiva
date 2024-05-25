@@ -11,11 +11,11 @@ export default class extends BaseSeeder {
       },
       {
         id: 2,
-        descripcion: 'La autoridad competente para la verificación del SUBJETIVO no es la Superintendencia de Transporte.'
+        descripcion: 'La autoridad competente para la verificación del MESS - Modelos de Negocios Especiales no es la Superintendencia de Transporte.'
       },
       {
         id: 3,
-        descripcion: 'No aplica al nivel de diseño e implementación del SUBJETIVO categorizado para la organización.'
+        descripcion: 'No aplica al nivel de diseño e implementación del MESS - Modelos de Negocios Especiales categorizado para la organización.'
       },
       {
         id: 4,
@@ -23,7 +23,7 @@ export default class extends BaseSeeder {
       },
       {
         id: 5,
-        descripcion: 'Desconocimiento de la fecha límite para el diseño e implementación del SUBJETIVO.'
+        descripcion: 'Desconocimiento de la fecha límite para el diseño e implementación del MESS - Modelos de Negocios Especiales.'
       },
       {
         id: 6,
