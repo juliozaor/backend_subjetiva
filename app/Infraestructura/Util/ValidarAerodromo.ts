@@ -24,7 +24,31 @@ export class ValidarAerodromo {
         return; // Salir del forEach si continuarIteracion es falso
     }
 
-      if (id == 33) {
+    if (id == 7) {
+      const preguntaAnterior = identificacion.find(p => p.preguntaId == 6)    
+          if(preguntaAnterior?.valor == '2') {
+              if(idnt.valor == null || idnt.valor == undefined || idnt.valor == ''){
+                  if (!faltantesIdentificacion.includes(id)) {
+                    faltantesIdentificacion.push(id);
+                  }
+              }
+          }
+      
+  }
+
+  else if (id == 9 || id == 10) {
+    const preguntaAnterior = identificacion.find(p => p.preguntaId == 8)    
+        if(preguntaAnterior?.valor == '1') {
+            if(idnt.valor == null || idnt.valor == undefined || idnt.valor == ''){
+                if (!faltantesIdentificacion.includes(id)) {
+                  faltantesIdentificacion.push(id);
+                }
+            }
+        }
+    
+}
+
+else if (id == 33) {
         const preguntaAnterior = identificacion.find(
           (p) => p.preguntaId == id - 1
         );
@@ -90,6 +114,8 @@ export class ValidarAerodromo {
             continuarIteracion = false; // No continuar iterando si el valor es 4
             return;
         }
+      }else if (id == 71) {       
+        //pasar
       }else if (documentosIdentificacion.includes(id)) {
         if (
           idnt.nombreAlmacenado == null ||
