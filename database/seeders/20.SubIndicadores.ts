@@ -159,7 +159,7 @@ export default class extends BaseSeeder {
         periodoId: 4
       }, {
         id: 20,
-        nombre: "Actividades programadas a partir del plan anual de trabajo SUBJETIVO",
+        nombre: "Actividades programadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales",
         codigo: "5.1",
         orden: 20,
         indicadorId: 5,
@@ -167,7 +167,7 @@ export default class extends BaseSeeder {
         periodoId: 4
       }, {
         id: 21,
-        nombre: "Actividades ejecutadas a partir del plan anual de trabajo SUBJETIVO",
+        nombre: "Actividades ejecutadas a partir del plan anual de trabajo MESS - Modelos de Negocios Especiales",
         codigo: "5.2",
         orden: 21,
         indicadorId: 5,

@@ -15,7 +15,7 @@ export default class ControladorArchivo {
       })
     }
     const host = Env.get('URL_SERVICIO_ARCHIVOS')
-    const rutaRaiz = 'subjetivo';
+    const rutaRaiz = 'MESS';
     const ruta = 'archivos';
     const endpoint = `/api/v1/${ruta}`
     const archivo = request.file('archivo', {

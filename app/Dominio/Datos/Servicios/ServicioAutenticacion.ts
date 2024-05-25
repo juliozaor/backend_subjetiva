@@ -89,8 +89,8 @@ export class ServicioAutenticacion {
 
 
     this.servicioAuditoria.Auditar({
-      accion: "Inicio de sesión SUBJETIVO",
-      modulo: "Autenticación SUBJETIVO",
+      accion: "Inicio de sesión MESS",
+      modulo: "Autenticación MESS",
       usuario: usuarioVerificado.identificacion,
       descripcion: 'Inicio de sesión'
     })

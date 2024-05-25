@@ -26,8 +26,8 @@ export class RepositorioRespuestasDB implements RepositorioRespuesta {
     }
     this.servicioEstado.Log(loginVigilado, estado, idEncuesta, idReporte)
     this.servicioAuditoria.Auditar({
-      accion: "Guardar Respuesta SUBJETIVO",
-      modulo: "Información general SUBJETIVO",
+      accion: "Guardar Respuesta MESS - Modelos de Negocios Especiales",
+      modulo: "Información general MESS - Modelos de Negocios Especiales",
       usuario: usuarioCreacion ?? '',
       vigilado: loginVigilado ?? '',
       descripcion: 'Primer guardado de la encuesta',
@@ -152,8 +152,8 @@ export class RepositorioRespuestasDB implements RepositorioRespuesta {
         existeRespuesta.estableceRespuestaConId(data)
         const resp = await existeRespuesta.save();
         this.servicioAuditoria.Auditar({
-          accion: "Actualizar Respuesta SUBJETIVO",
-          modulo: "Informacion General SUBJETIVO",
+          accion: "Actualizar Respuesta MESS - Modelos de Negocios Especiales",
+          modulo: "Informacion General MESS - Modelos de Negocios Especiales",
           jsonAnterior: JSON.stringify(existeRespuesta.$attributes),
           jsonNuevo: JSON.stringify(resp.$attributes),
           usuario: usuarioCreacion ?? '',

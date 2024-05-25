@@ -97,8 +97,8 @@ export class RepositorioEncuestasDB implements RepositorioEncuesta {
       //this.servicioEstado.Log(idUsuario, 1002, idEncuesta)
 
       this.servicioAuditoria.Auditar({
-        accion: "Listar Informacion General SUBJETIVO",
-        modulo: "Ingormación General SUBJETIVO",
+        accion: "Listar Informacion General MESS - Modelos de Negocios Especiales",
+        modulo: "Ingormación General MESS - Modelos de Negocios Especiales",
         usuario: idUsuario,
         vigilado: idVigilado,
         descripcion: 'Entra por primera vez a la encuesta',
@@ -355,8 +355,8 @@ export class RepositorioEncuestasDB implements RepositorioEncuesta {
 
 
       this.servicioAuditoria.Auditar({
-        accion: "Enviar a St info general SUBJETIVO",
-        modulo: "Información General SUBJETIVO",
+        accion: "Enviar a St info general MESS - Modelos de Negocios Especiales",
+        modulo: "Información General MESS - Modelos de Negocios Especiales",
         usuario: idUsuario,
         jsonNuevo: JSON.stringify(respuestas),
         vigilado: idVigilado,
