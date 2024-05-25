@@ -4,5 +4,5 @@ const controlador = '../../../app/Presentacion/Autenticacion/ControladorAutentic
 Route.group(() => {
   Route.post('/inicio-sesion', controlador+'.inicioSesion')
   Route.post('/cambiar-clave', controlador+'.cambiarClave')
-  Route.post('/verificar-subjetivo', controlador+'.validar')
+  Route.get('/verificar-subjetivo', controlador+'.validar')
 }).prefix('/api/v1/autenticacion')
