@@ -18,7 +18,7 @@ export class ValidarPortuaria {
                     faltantes.push(id)
                 }
                 
-                    const preguntaAnterior = preguntas.find(p => p.preguntaId == id-1)    
+                    const preguntaAnterior = preguntas.find(p => p.preguntaId == 7)    
                     if(preguntaAnterior?.valor != '1') {
                         if(pregunta.valor == null || pregunta.valor == undefined || pregunta.valor == ''){
                             if (!faltantes.includes(id)) {
@@ -29,7 +29,17 @@ export class ValidarPortuaria {
 
             }else
             if (id == 23) {
-                const preguntaAnterior = preguntas.find(p => p.preguntaId == id-1)    
+                const preguntaAnterior = preguntas.find(p => p.preguntaId == 22)    
+                    if(preguntaAnterior?.valor == '1') {
+                        if(pregunta.valor == null || pregunta.valor == undefined || pregunta.valor == ''){
+                            if (!faltantes.includes(id)) {
+                                faltantes.push(id);
+                            }
+                        }
+                    }
+                
+            }if (id == 28) {
+                const preguntaAnterior = preguntas.find(p => p.preguntaId == 27)    
                     if(preguntaAnterior?.valor == '1') {
                         if(pregunta.valor == null || pregunta.valor == undefined || pregunta.valor == ''){
                             if (!faltantes.includes(id)) {
@@ -39,7 +49,7 @@ export class ValidarPortuaria {
                     }
                 
             }if (id == 30) {
-                const preguntaAnterior = preguntas.find(p => p.preguntaId == id-1)    
+                const preguntaAnterior = preguntas.find(p => p.preguntaId == 29)    
                     if(preguntaAnterior?.valor == '2') {
                         if(pregunta.valor == null || pregunta.valor == undefined || pregunta.valor == ''){
                             if (!faltantes.includes(id)) {

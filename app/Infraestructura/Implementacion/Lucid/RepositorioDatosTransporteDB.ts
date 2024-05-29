@@ -19,7 +19,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
       );
 
       this.estados.Log(documento,1002,vigencia,8)
-      this.estados.estadoReporte(documento,1002,vigencia,8)
+      //this.estados.estadoReporte(documento,1002,vigencia,8)
 
       const editable = await this.estados.consultarEnviado(documento,vigencia,8)
       
@@ -73,7 +73,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
         preguntasDB
       );
       this.estados.Log(documento,1003,vigencia,8)
-      this.estados.estadoReporte(documento,1003,vigencia,8)
+      //this.estados.estadoReporte(documento,1003,vigencia,8)
       return true;
     } catch (error) {
       throw new Errores(
@@ -92,7 +92,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
     }
     if (aprobado) {
       this.estados.Log(documento,1004,vigencia,8)      
-      this.estados.estadoReporte(documento,1004,vigencia,8)      
+      //this.estados.estadoReporte(documento,1004,vigencia,8)      
     }
    
     return {
