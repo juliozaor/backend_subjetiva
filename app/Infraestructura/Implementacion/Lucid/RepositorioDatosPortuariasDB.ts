@@ -19,6 +19,8 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
       );
 
       this.estados.Log(documento,1002,vigencia,7)
+      //this.estados.estadoReporte(documento,1002,vigencia,7)
+      
 
       const editable = await this.estados.consultarEnviado(documento,vigencia,7)
       
@@ -74,6 +76,7 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
         preguntasDB
       );
       this.estados.Log(documento,1003,vigencia,7)
+     // this.estados.estadoReporte(documento,1003,vigencia,7)
       return true;
     } catch (error) {
       throw new Errores(
@@ -93,7 +96,8 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
       aprobado = false
     }
     if (aprobado) {
-      this.estados.estadoReporte(documento,1004,vigencia,7)      
+      this.estados.Log(documento,1004,vigencia,7)
+     // this.estados.estadoReporte(documento,1004,vigencia,7)      
     }
    
     return {
