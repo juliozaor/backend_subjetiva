@@ -16,6 +16,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
   async obtener(documento: string, vigencia: number): Promise<any> {
     const editable = await this.estados.consultarEnviado(documento,vigencia,553)
     this.estados.Log(documento,1002,vigencia,553)
+    this.estados.estadoReporte(documento,1002,vigencia,553)
     try {
       const consultarDatos = async (modelo) => {
           const datosDB = await modelo.query().preload("datos", (sqlDatos) => {
@@ -96,6 +97,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
                     preguntasGuardadas
                 );
                 this.estados.Log(documento, 1003, vigencia, 553);
+                this.estados.estadoReporte(documento, 1003, vigencia, 553);
                 return true;
             } catch (error) {              
                 throw new Errores(
@@ -151,6 +153,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
       aprobado = false
     }
     if (aprobado) {
+      this.estados.Log(documento,1004,vigencia,553)      
       this.estados.estadoReporte(documento,1004,vigencia,553)      
     }
    

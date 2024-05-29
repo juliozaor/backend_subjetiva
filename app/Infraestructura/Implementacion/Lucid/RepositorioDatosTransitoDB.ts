@@ -14,6 +14,8 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
   private validarTransito = new ValidarTransito();
   async obtener(documento: string, vigencia: number): Promise<any> {
     const editable = await this.estados.consultarEnviado(documento,vigencia,9)
+    this.estados.Log(documento,1002,vigencia,9)
+    this.estados.estadoReporte(documento,1002,vigencia,9)
 
     const identificacionOrganismoDB = await TblEstadosServiciosTercerizados.query()
     .where("vigencia", vigencia)
@@ -120,6 +122,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
     }
     
     this.estados.Log(documento,1003,vigencia,9)
+    this.estados.estadoReporte(documento,1003,vigencia,9)
     return true;
 
   }
@@ -162,6 +165,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
     if (aprobado) {
       this.estados.estadoReporte(documento,1004,vigencia,9)      
+      this.estados.Log(documento,1004,vigencia,9)      
     }
    
     return {
