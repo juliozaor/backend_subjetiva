@@ -12,9 +12,18 @@ export default {
 		definition: {
 			openapi: '3.0.0',
 			info: {
-				title: 'Application with swagger docs',
+				title: 'Documentación APIs MESS-Modelo de negocios especiales',
 				version: '1.0.0',
-				description: 'My application with swagger docs'
+				description: 'Documentación de las APIs del aplicativo MESS-Modelo de negocios especiales'
+			},
+			components: {
+				securitySchemes: {
+				bearerAuth: {
+					type: "http",
+					scheme: "Bearer",
+					bearerFormat: "JWT"
+				}
+				}
 			}
 		},
 
