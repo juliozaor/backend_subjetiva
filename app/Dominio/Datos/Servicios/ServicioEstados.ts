@@ -13,6 +13,9 @@ export class ServicioEstados {
         logEstados.formularioId = formularioId
         logEstados.vigencia = vigencia
         await logEstados.save()
+
+        this.estadoReporte(vigiladoId,estadoId,vigencia,formularioId) 
+
       }      
 
   }
