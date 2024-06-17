@@ -11,14 +11,7 @@ export class RespuestaInicioSesion {
       nombre?: string,
       apellido?: string,
       telefono?: string,
-      correo?: string,/* 
-      departamentoId?: number,
-      nombreDepartamento?: string,
-      municipioId?: number,
-      nombreCiudad?: string,
-      esDepartamental?: number
-      abrirModal?: boolean,
-      reportaOtroMunicipio?: boolean, */
+      correo?: string,
     },
     public readonly token: string,
     public readonly rol: RolDto,
