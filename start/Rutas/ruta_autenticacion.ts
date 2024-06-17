@@ -5,4 +5,5 @@ Route.group(() => {
   Route.post('/inicio-sesion', controlador+'.inicioSesion')
   Route.post('/cambiar-clave', controlador+'.cambiarClave')
   Route.get('/verificar-subjetivo', controlador+'.validar')
+  Route.post('/inicio-vigia', controlador+'.inicioVigia')
 }).prefix('/api/v1/autenticacion')
