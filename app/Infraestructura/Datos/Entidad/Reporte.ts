@@ -1,5 +1,6 @@
-import { BaseModel, column} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasOne, hasOne} from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon';
+import TblEstadoVigilado from './EstadoVigilado';
 
 export class TblReporte extends BaseModel {
   public static table = 'tbl_reportes';
@@ -17,6 +18,13 @@ export class TblReporte extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'tbr_actualizacion' })
   public actualizacion: DateTime
+
+
+  @hasOne(() => TblEstadoVigilado, {
+    localKey: 'estadoId',
+    foreignKey: 'id',
+  })
+  public estados: HasOne<typeof TblEstadoVigilado>;
 
 }
 

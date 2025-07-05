@@ -6,15 +6,18 @@ export class RepositorioReporteDB implements RepositorioReporte {
 
   async listarPorFormulario(documento: string, formularioId: number): Promise<any[]> {
     try {
-      const reportes = await TblReporte.query()
+      const reportes = await TblReporte.query().preload('estados')
         .where('tbr_vigilado_id', documento)
         .where('tbr_formulario_id', formularioId)
         .orderBy('tbr_anio_activo', 'desc');
 
+        console.log('reportes', reportes);
+
+
       return reportes.map(reporte => ({
         id: reporte.id,
         vigiladoId: reporte.vigiladoId,
-        estadoId: reporte.estadoId,
+        estadoId: reporte.estados.nombre,
         formularioId: reporte.formularioId,
         vigencia: reporte.vigencia,
         creacion: reporte.creacion,
