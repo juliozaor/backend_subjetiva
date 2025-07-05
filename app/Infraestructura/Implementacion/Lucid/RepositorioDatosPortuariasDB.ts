@@ -20,10 +20,10 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
 
       this.estados.Log(documento,1002,vigencia,7)
       //this.estados.estadoReporte(documento,1002,vigencia,7)
-      
+
 
       const editable = await this.estados.consultarEnviado(documento,vigencia,7)
-      
+
       const preguntas = new Array()
 
       preguntasDB.forEach(pregunta => {
@@ -87,9 +87,10 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
   }
 
   async enviar(documento: string, vigencia: number): Promise<any> {
-    
+    console.log("Enviando datos portuarias", documento, vigencia);
+
     const preguntas: any = await this.obtener(documento, vigencia);
-    
+
     const faltantes = await this.validarPortuaria.validar(preguntas);
     let aprobado = true
     if (faltantes.length > 0) {
@@ -97,9 +98,9 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
     }
     if (aprobado) {
       this.estados.Log(documento,1004,vigencia,7)
-     // this.estados.estadoReporte(documento,1004,vigencia,7)      
+     // this.estados.estadoReporte(documento,1004,vigencia,7)
     }
-   
+
     return {
       aprobado,
       faltantes,

@@ -32,8 +32,9 @@
     "./start/Rutas/ruta_meses",
     "./start/Rutas/ruta_vigencias",
     "./start/Rutas/ruta_portuaria",
+    "./start/Rutas/ruta_reportes",
     "./start/Rutas/ruta_transito",
-    "./start/Rutas/ruta_aerodromos",    
+    "./start/Rutas/ruta_aerodromos",
     "./start/Rutas/ruta_transporte"
   ],
   "providers": [
@@ -76,7 +77,7 @@
       "pattern": "**/*.edge",
       "reloadServer": true
     }
-  ], 
+  ],
   "build": {
     "copy": [
       {
