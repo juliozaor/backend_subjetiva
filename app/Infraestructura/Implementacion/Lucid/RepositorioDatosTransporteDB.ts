@@ -16,7 +16,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
           sqlDatos.where("vigencia", vigencia);
           sqlDatos.where("vigiladoId", documento);
         }
-      );
+      ).orderBy('id', 'asc');
 
       this.estados.Log(documento,1002,vigencia,8)
       //this.estados.estadoReporte(documento,1002,vigencia,8)
