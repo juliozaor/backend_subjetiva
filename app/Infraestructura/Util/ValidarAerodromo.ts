@@ -25,7 +25,7 @@ export class ValidarAerodromo {
     }
 
     if (id == 7) {
-      const preguntaAnterior = identificacion.find(p => p.preguntaId == 6)    
+      const preguntaAnterior = identificacion.find(p => p.preguntaId == 6)
           if(preguntaAnterior?.valor == '2') {
               if(idnt.valor == null || idnt.valor == undefined || idnt.valor == ''){
                   if (!faltantesIdentificacion.includes(id)) {
@@ -33,11 +33,11 @@ export class ValidarAerodromo {
                   }
               }
           }
-      
+
   }
 
   else if (id == 9 || id == 10) {
-    const preguntaAnterior = identificacion.find(p => p.preguntaId == 8)    
+    const preguntaAnterior = identificacion.find(p => p.preguntaId == 8)
         if(preguntaAnterior?.valor == '1') {
             if(idnt.valor == null || idnt.valor == undefined || idnt.valor == ''){
                 if (!faltantesIdentificacion.includes(id)) {
@@ -45,7 +45,7 @@ export class ValidarAerodromo {
                 }
             }
         }
-    
+
 }
 
 else if (id == 33) {
@@ -63,10 +63,10 @@ else if (id == 33) {
             }
           }
         }
-      } 
-      
+      }
+
      else if (id == 35 || id == 36 || id == 38) {
-        const preguntaAnterior = identificacion.find(p => p.preguntaId == 34)    
+        const preguntaAnterior = identificacion.find(p => p.preguntaId == 34)
             if(preguntaAnterior?.valor == '1') {
                 if(idnt.valor == null || idnt.valor == undefined || idnt.valor == ''){
                     if (!faltantesIdentificacion.includes(id)) {
@@ -74,11 +74,11 @@ else if (id == 33) {
                     }
                 }
             }
-        
+
     }
 
     else if (id == 37) {
-      const preguntaAnterior = identificacion.find(p => p.preguntaId == 34)    
+      const preguntaAnterior = identificacion.find(p => p.preguntaId == 34)
           if(preguntaAnterior?.valor == '1') {
             if (
               idnt.nombreAlmacenado == null ||
@@ -88,13 +88,13 @@ else if (id == 33) {
               faltantesIdentificacion.push(id);
             }
           }
-      
+
   }
-    
-      
+
+
       else if (id == 59) {
-       
-        
+
+
         if (idnt.valor == null || idnt.valor == undefined || idnt.valor == "") {
           if (!faltantesIdentificacion.includes(id)) {
             faltantesIdentificacion.push(id);
@@ -104,8 +104,8 @@ else if (id == 33) {
             return;
         }
       } else if (id == 73) {
-       
-        
+
+
         if (idnt.valor == null || idnt.valor == undefined || idnt.valor == "") {
           if (!faltantesIdentificacion.includes(id)) {
             faltantesIdentificacion.push(id);
@@ -114,7 +114,7 @@ else if (id == 33) {
             continuarIteracion = false; // No continuar iterando si el valor es 4
             return;
         }
-      }else if (id == 71) {       
+      }else if (id == 71) {
         //pasar
       }else if (documentosIdentificacion.includes(id)) {
         if (
@@ -130,7 +130,6 @@ else if (id == 33) {
         }
       }
     });
-
 
     const documentosReporte = [5, 10, 13, 16, 19];
 
@@ -158,6 +157,7 @@ else if (id == 33) {
       }
     });
 
+    if(!continuarIteracion){
     digtamen.forEach((dig) => {
       const id = dig.preguntaId;
 
@@ -175,6 +175,9 @@ else if (id == 33) {
         }
       }
     });
+
+  }
+
 
     return { faltantesIdentificacion, faltantesReporte, faltantesIngresos, faltantesDigtamen };
   }
