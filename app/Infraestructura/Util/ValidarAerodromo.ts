@@ -157,7 +157,10 @@ else if (id == 33) {
       }
     });
 
-    if(!continuarIteracion){
+    console.log({continuarIteracion});
+
+
+    if(continuarIteracion){
     digtamen.forEach((dig) => {
       const id = dig.preguntaId;
 
