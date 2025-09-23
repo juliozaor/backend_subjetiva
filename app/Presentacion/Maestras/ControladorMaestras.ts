@@ -254,15 +254,14 @@ export default class ControladorReporte {
               sqlFrm.where('fvi_frm_id', formularioId)
             }).where('idRol', '003')
 
-      frms.map(vigilado => {
+     const vigilados = await Promise.all(frms.map(async vigilado => {
         return {
           nombre: vigilado.nombre,
           nit: vigilado.identificacion,
           correo: vigilado.correo
         }
-      })
-
-    response.status(200).send({ vigilados: frms });
+      }))
+      response.status(200).send({ vigilados});
 
 
   /*   const vigilados = await TblMaestraVigilados.query().where('documento', documento).orderBy('id', 'asc');
