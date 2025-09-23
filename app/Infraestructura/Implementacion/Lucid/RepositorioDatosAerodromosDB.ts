@@ -151,7 +151,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
 
   async enviar(documento: string, vigencia: number): Promise<any> {
 
-    const preguntas: any = await this.obtener(documento, vigencia);
+    const preguntas: any = await this.obtener(documento, vigencia, true);
 
     const {faltantesIdentificacion, faltantesReporte, faltantesIngresos, faltantesDigtamen} = await this.validarAerodromo.validar(preguntas);
     let aprobado = true

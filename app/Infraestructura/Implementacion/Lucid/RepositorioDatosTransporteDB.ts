@@ -89,7 +89,7 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
   }
 
   async enviar(documento: string, vigencia: number): Promise<any> {
-    const preguntas: any = await this.obtener(documento, vigencia);
+    const preguntas: any = await this.obtener(documento, vigencia, true);
     const faltantes = await this.validarTransporte.validar(preguntas);
     let aprobado = true
     if (faltantes.length > 0) {

@@ -133,7 +133,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
   }
 
   async enviar(documento: string, vigencia: number): Promise<any> {
-    const preguntas: any = await this.obtener(documento, vigencia);
+    const preguntas: any = await this.obtener(documento, vigencia, true);
 
     const {faltantesPreguntas,faltantesIdentificacion} = await this.validarTransito.validar(preguntas);
     const {

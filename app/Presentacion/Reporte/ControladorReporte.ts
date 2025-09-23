@@ -11,8 +11,12 @@ export default class ControladorReporte {
 
     public async listarPorFormulario({ request, response }: HttpContextContract) {
         try {
-            const { documento } = await request.obtenerPayloadJWT()
+            let { documento } = await request.obtenerPayloadJWT()
             const { formularioId } = request.params();
+            const { nit } = request.all()
+            if(nit && nit != documento){
+              documento = nit
+            }
 
             // Parámetros opcionales de paginación
             const paginaParam = request.input('pagina');
