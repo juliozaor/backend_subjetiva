@@ -8,8 +8,15 @@ import { ServicioEstados } from "App/Dominio/Datos/Servicios/ServicioEstados";
 export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte {
   private estados = new ServicioEstados()
   private validarTransporte = new ValidarTransporte();
-  async obtener(documento: string, vigencia: number): Promise<any> {
+  async obtener(documento: string, vigencia: number, editar:boolean): Promise<any> {
     try {
+      let editable = true
+      if(!editar){
+        editable = false
+      }else{
+       editable = await this.estados.consultarEnviado(documento,vigencia,8)
+      }
+
       const preguntasDB = await TblEmpresasTransportes.query().preload(
         "datos",
         (sqlDatos) => {
@@ -21,8 +28,6 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
       this.estados.Log(documento,1002,vigencia,8)
       //this.estados.estadoReporte(documento,1002,vigencia,8)
 
-      const editable = await this.estados.consultarEnviado(documento,vigencia,8)
-      
       const preguntas = new Array()
 
       preguntasDB.forEach(pregunta => {
@@ -91,10 +96,10 @@ export class RepositorioDatosTransporteDB implements RepositorioDatosTransporte 
       aprobado = false
     }
     if (aprobado) {
-      this.estados.Log(documento,1004,vigencia,8)      
-      //this.estados.estadoReporte(documento,1004,vigencia,8)      
+      this.estados.Log(documento,1004,vigencia,8)
+      //this.estados.estadoReporte(documento,1004,vigencia,8)
     }
-   
+
     return {
       aprobado,
       faltantes,

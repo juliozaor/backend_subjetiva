@@ -12,8 +12,13 @@ import { EstadosServicioTercerizado } from "App/Dominio/Datos/Entidades/EstadosS
 export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
   private estados = new ServicioEstados()
   private validarTransito = new ValidarTransito();
-  async obtener(documento: string, vigencia: number): Promise<any> {
-    const editable = await this.estados.consultarEnviado(documento,vigencia,9)
+  async obtener(documento: string, vigencia: number, editar:boolean): Promise<any> {
+    let editable = true
+      if(!editar){
+        editable = false
+      }else{
+     editable = await this.estados.consultarEnviado(documento,vigencia,9)
+      }
     this.estados.Log(documento,1002,vigencia,9)
     //this.estados.estadoReporte(documento,1002,vigencia,9)
 
@@ -38,7 +43,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
       procesoCobroCoactivo: false,
       procesoCobroPersuasivo: false,
       recaudoMultas: false,
-      otros: false, 
+      otros: false,
       vigiladoId: documento,
       vigencia
     };
@@ -52,10 +57,10 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
     const preguntas = {};
 
-    for await (const servicio of serviciosTercerizados) {   
-      preguntas[servicio.mostrar] = []; 
+    for await (const servicio of serviciosTercerizados) {
+      preguntas[servicio.mostrar] = [];
       for await (const organismo of organismosTransito) {
-        const pregunta = preguntaDB.find(p => p.servicioId == servicio.id && p.preguntaId == organismo.id)  
+        const pregunta = preguntaDB.find(p => p.servicioId == servicio.id && p.preguntaId == organismo.id)
         preguntas[servicio.mostrar].push({
           preguntaId: organismo.id,
           nombre: organismo.nombre,
@@ -68,7 +73,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
       }
 
-      
+
     }
 
     return {identificacionOrganismo, preguntas, editable}
@@ -100,27 +105,27 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
       };
 
       await TblEstadosServiciosTercerizados.updateOrCreate(condicionesBusqueda, identificacionOrganismo);
-      
+
     } catch (error) {
       console.log(error);
-      
+
     }
 
 
-    
+
     try {
       await TblDatosTransitos.updateOrCreateMany(
         ["preguntaId", "vigiladoId", "vigencia", "servicioId"],
         preguntasDB
       );
-      
+
     } catch (error) {
       throw new Errores(
         `Se presento un problema al guardar el formulario, ${error}`,
         400
       );
     }
-    
+
     this.estados.Log(documento,1003,vigencia,9)
     //this.estados.estadoReporte(documento,1003,vigencia,9)
     return true;
@@ -129,7 +134,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
   async enviar(documento: string, vigencia: number): Promise<any> {
     const preguntas: any = await this.obtener(documento, vigencia);
-    
+
     const {faltantesPreguntas,faltantesIdentificacion} = await this.validarTransito.validar(preguntas);
     const {
       gruas,
@@ -145,7 +150,7 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
     let aprobado = true
 
-    
+
     if (faltantesIdentificacion.length > 0) {
       aprobado = false
     }
@@ -164,10 +169,10 @@ export class RepositorioDatosTransitoDB implements RepositorioDatosTransito {
 
 
     if (aprobado) {
-      //this.estados.estadoReporte(documento,1004,vigencia,9)      
-      this.estados.Log(documento,1004,vigencia,9)      
+      //this.estados.estadoReporte(documento,1004,vigencia,9)
+      this.estados.Log(documento,1004,vigencia,9)
     }
-   
+
     return {
       aprobado,
       faltantesPreguntas,

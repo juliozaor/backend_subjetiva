@@ -8,8 +8,16 @@ import { ServicioEstados } from "App/Dominio/Datos/Servicios/ServicioEstados";
 export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
   private estados = new ServicioEstados()
   private validarPortuaria = new ValidarPortuaria();
-  async obtener(documento: string, vigencia: number): Promise<any> {
+  async obtener(documento: string, vigencia: number, editar:boolean): Promise<any> {
     try {
+       let editable = true
+      if(!editar){
+        editable = false
+      }else{
+        editable = await this.estados.consultarEnviado(documento,vigencia,7)
+      }
+
+
       const preguntasDB = await TblSociedadesPortuarias.query().preload(
         "datos",
         (sqlDatos) => {
@@ -19,10 +27,8 @@ export class RepositorioDatosPortuariasDB implements RepositorioDatosPortuaria {
       ).orderBy('id', 'asc');
 
       this.estados.Log(documento,1002,vigencia,7)
-      //this.estados.estadoReporte(documento,1002,vigencia,7)
 
 
-      const editable = await this.estados.consultarEnviado(documento,vigencia,7)
 
       const preguntas = new Array()
 

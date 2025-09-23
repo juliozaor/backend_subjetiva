@@ -13,8 +13,14 @@ import { ValidarAerodromo } from "App/Infraestructura/Util/ValidarAerodromo";
 export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
   private estados = new ServicioEstados()
   private validarAerodromo = new ValidarAerodromo();
-  async obtener(documento: string, vigencia: number): Promise<any> {
-    const editable = await this.estados.consultarEnviado(documento,vigencia,553)
+  async obtener(documento: string, vigencia: number, editar:boolean): Promise<any> {
+
+    let editable = true
+      if(!editar){
+        editable = false
+      }else{
+     editable = await this.estados.consultarEnviado(documento,vigencia,553)
+      }
     this.estados.Log(documento,1002,vigencia,553)
     //this.estados.estadoReporte(documento,1002,vigencia,553)
     try {
@@ -23,7 +29,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
               sqlDatos.where("vigencia", vigencia);
               sqlDatos.where("vigiladoId", documento);
           });
-  
+
           return datosDB.map(pregunta => ({
               preguntaId: pregunta.id,
               nombre: pregunta.nombre,
@@ -55,17 +61,17 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
               anio: dato.anio ?? "",
           })
           });
-          
+
         });
 
         return ing
     };
-  
+
       const identificacion = await consultarDatos(TblIdentificacionVigilados);
       const reporte = await consultarDatos(TblReporteEntidadesTerritoriales);
       const ingresos = await consultarDatosIngresos(TblIngresosBrutosEntidadesTerritoriales);
       const digtamen = await consultarDatos(TblDigtamenRevisorFiscals);
-  
+
       return {
           identificacion,
           reporte,
@@ -77,7 +83,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
       console.log(error);
       throw new Errores(`Se presentó un problema al consultar el formulario`, 400);
   }
-  
+
   }
 
   async guardar(datos: any, documento: string, vigencia: number): Promise<any> {
@@ -90,7 +96,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
                 vigiladoId: documento,
                 vigencia: vigencia,
             }));
-            
+
             try {
                 await modelo.updateOrCreateMany(
                     ["preguntaId", "vigiladoId", "vigencia"],
@@ -99,7 +105,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
                 this.estados.Log(documento, 1003, vigencia, 553);
                 //this.estados.estadoReporte(documento, 1003, vigencia, 553);
                 return true;
-            } catch (error) {              
+            } catch (error) {
                 throw new Errores(
                     `Se presentó un problema al guardar el formulario`,
                     400
@@ -115,7 +121,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
               vigiladoId: documento,
               vigencia: vigencia,
           }));
-          
+
           try {
               await modelo.updateOrCreateMany(
                   ["preguntaId", "vigiladoId", "vigencia", "anio"],
@@ -123,7 +129,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
               );
               this.estados.Log(documento, 1003, vigencia, 553);
               return true;
-          } catch (error) {              
+          } catch (error) {
               throw new Errores(
                   `Se presentó un problema al guardar el formulario`,
                   400
@@ -144,7 +150,7 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
 
 
   async enviar(documento: string, vigencia: number): Promise<any> {
-    
+
     const preguntas: any = await this.obtener(documento, vigencia);
 
     const {faltantesIdentificacion, faltantesReporte, faltantesIngresos, faltantesDigtamen} = await this.validarAerodromo.validar(preguntas);
@@ -153,10 +159,10 @@ export class RepositorioDatosAerodromosDB implements RepositorioDatosPortuaria {
       aprobado = false
     }
     if (aprobado) {
-      this.estados.Log(documento,1004,vigencia,553)      
-      //this.estados.estadoReporte(documento,1004,vigencia,553)      
+      this.estados.Log(documento,1004,vigencia,553)
+      //this.estados.estadoReporte(documento,1004,vigencia,553)
     }
-   
+
     return {
       aprobado,
       faltantesIdentificacion,
