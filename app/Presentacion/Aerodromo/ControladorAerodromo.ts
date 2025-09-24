@@ -11,10 +11,16 @@ export default class ControladorAerodromo {
     }
 
 
-    public async obtener ({request,response}:HttpContextContract ){
-        const { documento } = await request.obtenerPayloadJWT()
+    public async obtener ({request, response}:HttpContextContract ){
+        let { documento } = await request.obtenerPayloadJWT()
+        const { nit } = request.all()
+        let editar = true
+        if(nit && nit != documento){
+          editar = false
+          documento = nit
+        }
         const vigencia = request.input('vigencia')
-        const aerodromo = await this.servicio.obtener(documento, vigencia)
+        const aerodromo = await this.servicio.obtener(documento, vigencia, editar)
         return aerodromo
       }
 

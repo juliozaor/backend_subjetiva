@@ -9,12 +9,12 @@ export default class TblEstadosServiciosTercerizados extends BaseModel {
   public id?: number
 
   @column({ columnName: 'tst_razon_social' }) public razonSocial: string;
-  @column({ columnName: 'tst_tipo_nit' }) public tipoNit: number;
-  @column({ columnName: 'tst_nit' }) public nit: number;
-  @column({ columnName: 'tst_digito_verificacion' }) public digitoVerificacion: number;
-  @column({ columnName: 'tst_tipo_oganizacion' }) public tipoOrganizacion: number;
-  @column({ columnName: 'tst_apoya_terceros' }) public apoyaTerceros: number;
-  @column({ columnName: 'tst_proceso_adjudicacion' }) public procesoAdjudicacion: number;
+  @column({ columnName: 'tst_tipo_nit' }) public tipoNit: number | null;
+  @column({ columnName: 'tst_nit' }) public nit: number | null;
+  @column({ columnName: 'tst_digito_verificacion' }) public digitoVerificacion: number | null;
+  @column({ columnName: 'tst_tipo_oganizacion' }) public tipoOrganizacion: number | null;
+  @column({ columnName: 'tst_apoya_terceros' }) public apoyaTerceros: number | null;
+  @column({ columnName: 'tst_proceso_adjudicacion' }) public procesoAdjudicacion: number | null;
 
   @column({ columnName: 'tst_gruas' }) public gruas: boolean;
   @column({ columnName: 'tst_patios' }) public patios: boolean;
@@ -24,10 +24,10 @@ export default class TblEstadosServiciosTercerizados extends BaseModel {
   @column({ columnName: 'tst_procesos_cobro_coactivo' }) public procesoCobroCoactivo: boolean;
   @column({ columnName: 'tst_procesos_cobro_persuasivo' }) public procesoCobroPersuasivo: boolean;
   @column({ columnName: 'tst_recaudo_multas' }) public recaudoMultas: boolean;
-  @column({ columnName: 'tst_otros' }) public otros: boolean;  
-  
+  @column({ columnName: 'tst_otros' }) public otros: boolean;
+
   @column({ columnName: 'tst_vigilado_id' }) public vigiladoId: string;
-  @column({ columnName: 'tst_anio_activo' }) public vigencia: number;      
+  @column({ columnName: 'tst_anio_activo' }) public vigencia: number;
 
   @column.dateTime({ autoCreate: true, columnName: 'tst_creacion' })
   public creacion: DateTime
@@ -39,7 +39,7 @@ export default class TblEstadosServiciosTercerizados extends BaseModel {
 
 
   public establecerDatoDb(dato: EstadosServicioTercerizado) {
-    this.id = dato.id    
+    this.id = dato.id
     this.razonSocial = dato.razonSocial
     this.tipoNit = dato.tipoNit
     this.nit = dato.nit
@@ -81,7 +81,7 @@ export default class TblEstadosServiciosTercerizados extends BaseModel {
 
   public obtenerDato(): EstadosServicioTercerizado {
     const dato = new EstadosServicioTercerizado()
-    dato.id = this.id    
+    dato.id = this.id
     dato.razonSocial = this.razonSocial
     dato.tipoNit = this.tipoNit
     dato.nit = this.nit

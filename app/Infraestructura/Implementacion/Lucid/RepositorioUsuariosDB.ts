@@ -56,7 +56,7 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
     usuario?.formularios.map( formulario => {
       formulario.estado =  formulario.$extras.pivot_fvi_estado
     })
-    
+
     return usuario
   }
 
@@ -82,10 +82,10 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
     const usuarioDb = await TblUsuarios.query().preload('formularios')
       .where("usuario", "=", nombreUsuario)
       .first();
-      
+
     if (usuarioDb) {
       const usuario = usuarioDb.obtenerUsuario();
-      return usuarioDb;
+      return usuario;
     }
     return null;
   }
@@ -93,7 +93,7 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
   async obtenerUsuarioPorUsuario2 (nombreUsuario: string): Promise<Usuario | null>{
     const usuarioDb = await TblUsuarios.query().where('usuario', '=', nombreUsuario).first()
     if(usuarioDb){
-      const usuario = usuarioDb.obtenerUsuario()      
+      const usuario = usuarioDb.obtenerUsuario()
       return usuario
     }
     return null
@@ -116,15 +116,15 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
           formularioGuardar
         );
       }
-  
-      return usuarioDB;
+
+      return usuarioDB.obtenerUsuario();
     } catch (error) {
       console.log(error);
-      
+
       throw new Error("Se presento un error al crear el usuario");
-      
+
     }
-   
+
   }
 
   async actualizarUsuario(
@@ -133,8 +133,8 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
     formularios:any,
     payload?: PayloadJWT
   ): Promise<Usuario> {
-    
-    
+
+
   try {
         let usuarioRetorno = await TblUsuarios.findOrFail(id);
         const usuarioAnterior = usuarioRetorno;
@@ -159,18 +159,18 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
           usuario: payload?.documento ?? "",
           descripcion: "Usuario actualizado",
         });
-    
-        return usuarioRetorno;
+
+        return usuarioRetorno.obtenerUsuario();
   } catch (error) {
     console.log(error);
-      
+
       throw new Error("Se presento un error al crear el usuario");
-      
+
   }
-    
 
 
-  
+
+
   }
 
   public async caracterizacion(
@@ -178,7 +178,7 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
     idRol: string,
     idEncuesta?: number
   ): Promise<any> {
-    let encuestaCategorizable: boolean = false;
+   /*  let encuestaCategorizable: boolean = false;
     let categorizado: boolean = true;
     //administrador - revisor y vigilado
     if (idRol == "007") {
@@ -209,6 +209,6 @@ export class RepositorioUsuariosDB implements RepositorioUsuario {
       }
     }
 
-    return { categorizado, encuestaCategorizable };
+    return { categorizado, encuestaCategorizable }; */
   }
 }

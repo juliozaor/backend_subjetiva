@@ -11,9 +11,15 @@ export default class ControladorTransporte {
 
 
     public async obtener ({request,response}:HttpContextContract ){
-        const { documento } = await request.obtenerPayloadJWT()
+        let { documento } = await request.obtenerPayloadJWT()
+        const { nit } = request.all()
+        let editar = true
+        if(nit && nit != documento){
+          editar = false
+          documento = nit
+        }
         const vigencia = request.input('vigencia')
-        const Transporte = await this.servicio.obtener(documento, vigencia)
+        const Transporte = await this.servicio.obtener(documento, vigencia, editar)
         return Transporte
       }
 

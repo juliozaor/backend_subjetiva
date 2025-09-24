@@ -5,8 +5,8 @@ import { PayloadJWT } from 'App/Dominio/Dto/PayloadJWT';
 export class ServicioDatosTransito{
   constructor (private repositorio: RepositorioDatosTransito) { }
 
-  async obtener (documento:string, vigencia:number): Promise<any> {
-    return this.repositorio.obtener(documento, vigencia);
+  async obtener (documento:string, vigencia:number, editar:boolean): Promise<any> {
+    return this.repositorio.obtener(documento, vigencia, editar);
   }
 
 

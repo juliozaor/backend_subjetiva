@@ -4,8 +4,8 @@ import { RepositorioDatosAerodromo } from 'App/Dominio/Repositorios/RepositorioD
 export class ServicioDatosAerodromos{
   constructor (private repositorio: RepositorioDatosAerodromo) { }
 
-  async obtener (documento:string, vigencia:number): Promise<any> {
-    return this.repositorio.obtener(documento, vigencia);
+  async obtener (documento:string, vigencia:number, editar:boolean): Promise<any> {
+    return this.repositorio.obtener(documento, vigencia, editar);
   }
 
 

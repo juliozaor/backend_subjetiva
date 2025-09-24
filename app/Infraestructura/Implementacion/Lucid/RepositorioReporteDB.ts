@@ -1,28 +1,50 @@
+import { Paginador } from 'App/Dominio/Paginador';
+import { RepositorioReporteSimple } from 'App/Dominio/Repositorios/RepositorioReporteSimple';
 import { TblReporte } from 'App/Infraestructura/Datos/Entidad/Reporte';
 
 
 
-export class RepositorioReporteDB implements RepositorioReporte {
+export class RepositorioReporteDB implements RepositorioReporteSimple {
 
-  async listarPorFormulario(documento: string, formularioId: number): Promise<any[]> {
+  async listarPorFormulario(documento: string, formularioId: number, pagina?: number, limite?: number): Promise<{ reportes: any[], paginacion?: Paginador }> {
     try {
-      const reportes = await TblReporte.query().preload('estados')
+      let query = TblReporte.query().preload('estados')
         .where('tbr_vigilado_id', documento)
         .where('tbr_formulario_id', formularioId)
         .orderBy('tbr_anio_activo', 'desc');
 
-        console.log('reportes', reportes);
-
-
-      return reportes.map(reporte => ({
-        id: reporte.id,
-        vigiladoId: reporte.vigiladoId,
-        estadoId: reporte.estados.nombre,
-        formularioId: reporte.formularioId,
-        vigencia: reporte.vigencia,
-        creacion: reporte.creacion,
-        actualizacion: reporte.actualizacion
-      }));
+      let paginacion: Paginador | undefined = undefined;
+      if (pagina !== undefined && limite !== undefined) {
+        const resultado = await query.paginate(pagina, limite);
+        paginacion = new Paginador(
+          resultado.total,
+          resultado.currentPage,
+          resultado.lastPage
+        );
+        const reportes = resultado.all().map(reporte => ({
+          id: reporte.id,
+          vigiladoId: reporte.vigiladoId,
+          estadoId: reporte.estados.nombre,
+          formularioId: reporte.formularioId,
+          vigencia: reporte.vigencia,
+          creacion: reporte.creacion,
+          actualizacion: reporte.actualizacion
+        }));
+        return { reportes, paginacion };
+      } else {
+        const reportes = await query;
+        return {
+          reportes: reportes.map(reporte => ({
+            id: reporte.id,
+            vigiladoId: reporte.vigiladoId,
+            estadoId: reporte.estados.nombre,
+            formularioId: reporte.formularioId,
+            vigencia: reporte.vigencia,
+            creacion: reporte.creacion,
+            actualizacion: reporte.actualizacion
+          }))
+        };
+      }
     } catch (error) {
       console.log(error);
       throw new Error('Error al consultar reportes por formulario');

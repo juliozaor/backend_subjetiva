@@ -243,4 +243,28 @@ export default class ControladorReporte {
     const codigosCiiu = await TblMaestraCodigos.query().orderBy('id', 'asc');
     response.status(200).send({ codigosCiiu });
   }
+
+
+    public async vigilados({ response, request }: HttpContextContract) {
+      const { idRol } = await request.obtenerPayloadJWT()
+      const { formularioId } = request.qs()
+
+      const frms = await TblUsuarios.query().whereHas('formularios', sqlFrm =>{
+              sqlFrm.where('fvi_estado', true)
+              sqlFrm.where('fvi_frm_id', formularioId)
+            }).where('idRol', '003')
+
+     const vigilados = await Promise.all(frms.map(async vigilado => {
+        return {
+          nombre: vigilado.nombre,
+          nit: vigilado.identificacion,
+          correo: vigilado.correo
+        }
+      }))
+      response.status(200).send({ vigilados});
+
+
+  /*   const vigilados = await TblMaestraVigilados.query().where('documento', documento).orderBy('id', 'asc');
+    response.status(200).send({ vigilados }); */
+  }
 }

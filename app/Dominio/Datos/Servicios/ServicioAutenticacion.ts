@@ -53,7 +53,7 @@ export class ServicioAutenticacion {
 
   public async iniciarSesion(usuario: string, contrasena: string): Promise<RespuestaInicioSesion> {
     const usuarioVerificado = await this.verificarUsuario(usuario)
-    
+
     let registroDeBloqueo = await this.repositorioBloqueo.obtenerRegistroPorUsuario(usuarioVerificado.identificacion)
     if (!registroDeBloqueo) {
       registroDeBloqueo = await this.crearRegistroDeBloqueo(usuarioVerificado.identificacion)
@@ -98,21 +98,26 @@ export class ServicioAutenticacion {
    /*  const rol = new RolDto(rolUsuario)     */
 
     const formularios = new Array()
-    
+
 /*     const modulo = rol.modulos.find(modulo => modulo.id === '002');
     if (modulo) { */
       const frms = await TblUsuarios.query().preload('formularios', sqlFrm =>{
         sqlFrm.where('fvi_estado', true)
       }).where('usn_id',usuarioVerificado.id).first()
-      
+
+
       frms?.formularios.forEach(frm => {
+        let ruta = frm.ruta
+        if(rolUsuario.id === '009' || rolUsuario.id === '001'){
+        ruta = "/consultor"
+      }
         formularios.push({
           id:frm.id,
           nombre:frm.nombre,
-          ruta: frm.ruta,
+          ruta: ruta,
           delegatura: frm.delegatura
         })
-      });      
+      });
 /*     }  */
 
     return new RespuestaInicioSesion(

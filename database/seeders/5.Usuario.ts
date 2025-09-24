@@ -12,11 +12,10 @@ export default class extends BaseSeeder {
             nombre: 'Administrador',
             clave: '$bcrypt$v=98$r=10$a+n/pw/rCOQbrJ/i88VuLg$WSNEHXC0TuDUSCA99Qn2waR5OodV9+0',
             correo: 'ingnovaott@gmail.com',
-            fechaNacimiento: DateTime.now(),
             identificacion: '0000000',
             idRol: ROLES.SUPER,
             usuario: '0000000',
-            id: v4() 
+            id: v4()
         }
     ])
   }
