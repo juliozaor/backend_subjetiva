@@ -253,6 +253,8 @@ export default class ControladorReporte {
               sqlFrm.where('fvi_estado', true)
               sqlFrm.where('fvi_frm_id', formularioId)
             }).where('idRol', '003')
+            .andWhere('correo', '<>', 'pruebassuperp@gmail.com')
+            .andWhere('correo', '<>', 'andresmedina@supertransporte.gov.co')
 
      const vigilados = await Promise.all(frms.map(async vigilado => {
         return {
